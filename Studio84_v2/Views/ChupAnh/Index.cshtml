@@ -1,0 +1,68 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<style>
+    .site-content .heading-title::before {
+        content: "";
+        position: absolute;
+        top: 3px;
+        left: 0;
+        width: 20px;
+        height: 20px;
+        background: url(../assets/img/icon/icon-header.png) center center no-repeat;
+        background-size: cover;
+    }
+
+    .nupacachi-content {
+        margin-top: 25px;
+    }
+
+        .nupacachi-content .panel .panel-heading {
+            background-color: #ffffff !important;
+        }
+
+            .nupacachi-content .panel .panel-heading a {
+                color: #556b2f;
+            }
+
+    #img-before {
+        margin-bottom: 5px;
+        margin-right: 5px;
+    }
+</style>
+
+<div class="container">
+    <div class="breadcrumbs-top">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Chụp ảnh</li>
+            </ol>
+        </nav>
+    </div>
+
+
+    <div class="panel">
+        <div class="panel-heading"><div class="left"><a href="@Url.Action("AnhPrewedding", "ChupAnh")" class="heading-title"><img src="~/assets/img/icon/icon-header.png" id="img-before" />Ảnh prewedding</a></div> <div class="right"><a href="@Url.Action("AnhPrewedding", "ChupAnh")"><i class="fa fa-plus" aria-hidden="true"></i> Xem thêm</a></div></div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="member-item">
+                        <div class="item wow fadeInRight">
+                            <div class="item-img">
+                                <a href="">
+                                    <img class="" src="~/assets/img/album01/84491368_103407474577839_8975941187135340544_o.jpg" alt="">
+                                </a>
+                                <div class="item-content">
+                                    <div class="content"><a href="@Url.Action("Album01", "ChupAnh")">Minh Nhung & Hồng Sơn</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
