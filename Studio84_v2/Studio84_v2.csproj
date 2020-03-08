@@ -1972,6 +1972,16 @@
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Studio84.Model\Studio84.Model.csproj">
+      <Project>{dd21f9e7-2d5b-45f4-b9f4-7bbd098e2058}</Project>
+      <Name>Studio84.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Studio84.Services\Studio84.Services.csproj">
+      <Project>{e91980d0-9a09-4e60-97ca-b98b55448df0}</Project>
+      <Name>Studio84.Services</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
