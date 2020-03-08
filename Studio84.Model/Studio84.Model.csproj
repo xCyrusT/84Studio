@@ -60,6 +60,10 @@
     <Compile Include="Migrations\202003041841285_Create_Database.Designer.cs">
       <DependentUpon>202003041841285_Create_Database.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202003082126008_ThuLK.cs" />
+    <Compile Include="Migrations\202003082126008_ThuLK.designer.cs">
+      <DependentUpon>202003082126008_ThuLK.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="OTHERCATEGORIES.cs" />
     <Compile Include="OTHERPOSTS.cs" />
@@ -79,6 +83,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202003041841285_Create_Database.resx">
       <DependentUpon>202003041841285_Create_Database.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003082126008_ThuLK.resx">
+      <DependentUpon>202003082126008_ThuLK.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

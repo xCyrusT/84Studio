@@ -1,0 +1,193 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<style>
+    .modal-backdrop {
+        position: inherit;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 1040;
+        background-color: #000;
+    }
+
+    .modal-content {
+        position: relative;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        width: 100%;
+        pointer-events: auto;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid rgba(0,0,0,.2);
+        border-radius: .3rem;
+        outline: 0;
+        margin-top: 10%;
+    }
+</style>
+
+<div class="main-content">
+    <div class="section__content section__content--p30">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- DATA TABLE -->
+                    <h3 class="title-5 m-b-35">Danh mục chụp ảnh</h3>
+                    <div class="table-data__tool">
+                        <div class="table-data__tool-right">
+                            <button class="au-btn au-btn-icon au-btn--green au-btn--small" data-toggle="modal" data-target="#mediumModal">
+                                <i class="zmdi zmdi-plus"></i>Thêm mới
+                            </button>
+                        </div>
+                    </div>
+                    <div class="table-responsive table-responsive-data2">
+                        <table class="table table-data2" id="pagination">
+                            @*<thead><tr><th>STT</th><th>Tiêu đề</th><th>Đường dẫn ảnh</th><th>Trạng thái</th><th></th></tr></thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="5">No data</td>
+                            </tr>
+                        </tbody>*@
+                        </table>
+                    </div>
+                    <!-- END DATA TABLE -->
+                </div>
+            </div>
+
+            <!--MODAL-->
+            <div class="modal fade" id="mediumModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="mediumModalLabel">Danh mục chụp ảnh</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group">
+                                    <label>Mã danh mục</label>
+                                    <input type="text" id="categoryId" readonly class="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Tiêu đề</label>
+                                    <input type="text" id="title" class="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Đường dẫn ảnh</label>
+                                    <input type="text" id="thumble" class="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Trạng thái</label>
+                                    <input type="text" id="isActive" class="form-control" />
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="btnAdd" onclick="return Add();">Thêm mới</button>
+                            <button type="button" class="btn btn-primary" id="btnUpdate" style="display:none" onclick="return Update();">Sửa</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--END MODAL-->
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            var container = $('#pagination');
+
+            container.pagination({
+                dataSource: function (done) {
+                    $.ajax({
+                        type: 'GET',
+                        url: '/PhotoCategory/GetAllPhotoCategory',
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (response) {
+                            console.log("response; ", response);
+                            done(response.Data);
+                        }
+                    });
+                },
+                locator: 'items',
+                totalNumberLocator: function (response) {
+                    return Math.floor(Math.random() * (1000 - 100)) + 100;
+                },
+                pageSize: 10,
+                ajax: {
+                    beforeSend: function () {
+                        container.prev().html('Đang tải dữ liệu ...');
+                    }
+                },
+                callback: function (response, pagination) {
+                    var dataHtml = '<thead><tr><th>STT</th><th>Tiêu đề</th><th>Đường dẫn ảnh</th><th>Trạng thái</th><th></th></tr ></thead><tbody>';
+
+                    if (response.length < 1) {
+                        dataHtml += '<tr class="tr-shadow">';
+                        dataHtml += '<td colspan="5"><p>Không có dữ liệu</p></td>';
+                        dataHtml += '</tr>';
+
+                        //container.hide();
+                    }
+                    else {
+                        $.each(response, function (index, item) {
+                            dataHtml += '<tr class="tr-shadow">';
+                            dataHtml += '<td>' + index + 1 + '</td>';
+                            dataHtml += '<td>' + item.title + '</td>';
+                            dataHtml += '<td>' + item.thumbPath + '</td>';
+                            dataHtml += '<td>' + item.isActive + '</td>';
+                            dataHtml += '<td><div class="table-data-feature">';
+                            dataHtml += '<button class="item" onclick="return GetById(' + item.id + ')" data-toggle="tooltip" data-placement="top" title="Sửa"><i class="zmdi zmdi-edit"></i></button>';
+                            dataHtml += '<button class="item" onclick="return Delete(' + item.id + ')" data-toggle="tooltip" data-placement="top" title="Xoá"><i class="zmdi zmdi-delete"></i></button>';
+                            dataHtml += '</div></td>';
+                            dataHtml += '</tr>';
+                        });
+                    }
+
+                    dataHtml += '</tbody>';
+
+                    container.html(dataHtml);
+                    //container.prev().html(dataHtml);
+                }
+            });
+        });
+
+        //Add data function
+        function Add() {
+            //lấy giá trị trong textbox
+            var data = {
+                Id: $('#categoryId').val(),
+                Title: $('#title').val(),
+                ThumbPath: $('#thumble').val(),
+                IsActive: $('#isActive').val()
+            };
+            $.ajax({
+                url: "/PhotoCategory/Add/",
+                data: JSON.stringify(data),
+                contentType: "application/json;charset=utf-8",
+                dataType: 'json',
+                type: "POST",
+                success: function (result) {
+                    //load data
+                    loadData();
+                    //hide myModal
+                    $('#myModal').modal('hide');
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+        }
+    </script>
+}
