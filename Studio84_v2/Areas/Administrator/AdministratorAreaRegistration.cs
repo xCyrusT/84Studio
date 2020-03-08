@@ -17,7 +17,8 @@ namespace Studio84_v2.Areas.Administrator
             context.MapRoute(
                 "Administrator_default",
                 "Administrator/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional }
+                new { action = "Index", id = UrlParameter.Optional },
+                namespaces: new string[] { "Studio84_v2.Areas.Administrator.Controllers" }
             );
         }
     }
