@@ -52,7 +52,11 @@ namespace Studio84_v2.Areas.Administrator.Controllers
 
         public JsonResult DeletePhotoCategory(long id)
         {
-            return Json(photoRepos.DeletePhotoCategory(id), JsonRequestBehavior.AllowGet);
+            JsonResult result = new JsonResult();
+
+            result.Data = photoRepos.DeletePhotoCategory(id);
+
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
     }
 }

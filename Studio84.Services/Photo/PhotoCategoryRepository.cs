@@ -12,12 +12,14 @@ namespace Studio84.Services
     public class PhotoCategoryRepository
     {
         private Studio84DbContext db = null;
-        private DbSet<PHOTOCATEGORIES> table = null;
+        private DbSet<PHOTOCATEGORIES> _photoCateRepos = null;
+        private DbSet<PHOTOPOSTS> _photoPostRepos = null;
 
         public PhotoCategoryRepository()
         {
             db = new Studio84DbContext();
-            table = db.Set<PHOTOCATEGORIES>();
+            _photoCateRepos = db.Set<PHOTOCATEGORIES>();
+            _photoPostRepos = db.Set<PHOTOPOSTS>();
         }
 
         public List<PhotoCategoryDto> GetAll()
@@ -26,7 +28,7 @@ namespace Studio84.Services
 
             try
             {
-                var lstCategory = table.ToList();
+                var lstCategory = _photoCateRepos.ToList();
 
                 foreach (var item in lstCategory)
                 {
@@ -55,7 +57,7 @@ namespace Studio84.Services
 
             try
             {
-                var query = table.Find(id);
+                var query = _photoCateRepos.Find(id);
 
                 if (query != null)
                 {
@@ -96,19 +98,31 @@ namespace Studio84.Services
             return id;
         }
 
-        public long DeletePhotoCategory(long id)
+        public string DeletePhotoCategory(long id)
         {
-            long result = -1;
+            string result = "failed";
 
             try
             {
-                var existing = table.Find(id);
-                table.Remove(existing);
-                db.SaveChanges();
+                var existing = _photoCateRepos.Find(id);
+
+                var photoPost = _photoPostRepos.ToList().Where(x => x.PhotoCategoryId == id && x.IsActive == true);
+
+                if (photoPost.ToList().Count == 0)
+                {
+                    _photoCateRepos.Remove(existing);
+                    db.SaveChanges();
+
+                    result = "success";
+                }
+                else
+                {
+                    result = "used";
+                }
             }
             catch (Exception ex)
-            {            
-                throw new Exception(ex.Message);
+            {
+                result = ex.Message;
             }
 
             return result;

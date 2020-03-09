@@ -395,14 +395,34 @@
                         contentType: "application/json;charset=utf-8",
                         dataType: "json",
                         type: "GET",
-                        success: function (rerult) {
-                            Swal.fire(
-                                'Đã xoá!',
-                                'Đã xoá thành công',
-                                'success',
-                                1500
-                            )
-                            location.reload(true);
+                        success: function (result2) {
+                            if (result2.Data == "success") {
+                                Swal.fire(
+                                    'Đã xoá!',
+                                    'Đã xoá thành công',
+                                    'success',
+                                    1500
+                                )
+                                location.reload(true);
+                            }
+                            else {
+                                var mess = "";
+                                if (result2.Data == "failed") {
+                                    mess = "Xoá thất bại !"
+                                }
+                                else if (result2.Data == "used") {
+                                    mess = "Đối tượng đang được sử dụng tại nơi khác, vui lòng kiểm tra lại !";
+                                }
+                                else {
+                                    mess = result2.Data;
+                                }
+
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Xảy ra lỗi',
+                                    text: mess
+                                })
+                            }
                         },
                         error: function (errormessage) {
                             Swal.fire({
