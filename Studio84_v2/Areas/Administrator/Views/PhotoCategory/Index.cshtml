@@ -29,6 +29,34 @@
         outline: 0;
         margin-top: 10%;
     }
+
+    .switch.switch-text {
+        position: relative;
+        display: inline-block;
+        vertical-align: top;
+        width: 110px;
+        height: 24px;
+        background-color: transparent;
+        cursor: pointer;
+    }
+        .switch.switch-text .switch-input:checked ~ .switch-handle {
+            left: 90px;
+        }
+
+        .switch.switch-text .switch-label {
+            background-color: brown;
+        }
+
+    #statusActive {
+        background-color: green;
+        color: white;
+        border-radius: 3px;
+    }
+    #statusInActive {
+        background-color: red;
+        color: white;
+        border-radius: 3px;
+    }
 </style>
 
 <div class="main-content">
@@ -47,12 +75,6 @@
                     </div>
                     <div class="table-responsive table-responsive-data2">
                         <table class="table table-data2" id="pagination">
-                            @*<thead><tr><th>STT</th><th>Tiêu đề</th><th>Đường dẫn ảnh</th><th>Trạng thái</th><th></th></tr></thead>
-                        <tbody>
-                            <tr>
-                                <td colspan="5">No data</td>
-                            </tr>
-                        </tbody>*@
                         </table>
                     </div>
                     <!-- END DATA TABLE -->
@@ -81,18 +103,25 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Đường dẫn ảnh</label>
-                                    <input type="text" id="thumble" class="form-control" />
+                                    <div style="display:flex">
+                                        <input type="text" id="thumble" class="form-control" style="width:87%;" />
+                                        <button type="button" class="btn btn-primary" id="btnSelectImg">Chọn ảnh</button>
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label>Trạng thái</label>
-                                    <input type="text" id="isActive" class="form-control" />
+                                    <label class="switch switch-text switch-primary switch-pill">
+                                        <input type="checkbox" class="switch-input" id="isActive" checked="true">
+                                        <span data-on="Kích hoạt" data-off="Ẩn" class="switch-label"></span>
+                                        <span class="switch-handle"></span>
+                                    </label>
                                 </div>
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" id="btnAdd" onclick="return Add();">Thêm mới</button>
-                            <button type="button" class="btn btn-primary" id="btnUpdate" style="display:none" onclick="return Update();">Sửa</button>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                            <button type="button" class="btn btn-success" id="btnAdd" onclick="return Add();">Thêm mới</button>
+                            <button type="button" class="btn btn-success" id="btnUpdate" style="display:none" onclick="return Update();">Sửa</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
                         </div>
                     </div>
                 </div>
@@ -144,12 +173,19 @@
                         $.each(response, function (index, item) {
                             dataHtml += '<tr class="tr-shadow">';
                             dataHtml += '<td>' + index + 1 + '</td>';
-                            dataHtml += '<td>' + item.title + '</td>';
-                            dataHtml += '<td>' + item.thumbPath + '</td>';
-                            dataHtml += '<td>' + item.isActive + '</td>';
+                            dataHtml += '<td>' + item.Title + '</td>';
+                            dataHtml += '<td>' + item.ThumbPath + '</td>';
+
+                            if (item.IsActive == true) {
+                                dataHtml += '<td><span id="statusActive">Kích hoạt</span></td>';
+                            }
+                            else {
+                                dataHtml += '<td><span id="statusInActive">Ẩn</span></td>';
+                            }
+
                             dataHtml += '<td><div class="table-data-feature">';
-                            dataHtml += '<button class="item" onclick="return GetById(' + item.id + ')" data-toggle="tooltip" data-placement="top" title="Sửa"><i class="zmdi zmdi-edit"></i></button>';
-                            dataHtml += '<button class="item" onclick="return Delete(' + item.id + ')" data-toggle="tooltip" data-placement="top" title="Xoá"><i class="zmdi zmdi-delete"></i></button>';
+                            dataHtml += '<button class="item" onclick="return GetById(' + item.Id + ')" data-toggle="tooltip" data-placement="top" title="Sửa"><i class="zmdi zmdi-edit"></i></button>';
+                            dataHtml += '<button class="item" onclick="return Delete(' + item.Id + ')" data-toggle="tooltip" data-placement="top" title="Xoá"><i class="zmdi zmdi-delete"></i></button>';
                             dataHtml += '</div></td>';
                             dataHtml += '</tr>';
                         });
@@ -161,26 +197,46 @@
                     //container.prev().html(dataHtml);
                 }
             });
+
+            $('#btnSelectImg').on('click', function () {
+                var finder = new CKFinder();
+
+                finder.selectActionFunction = function(url){
+                    $('#thumble').val(url);
+                }
+
+                finder.popup();
+            });
         });
 
         //Add data function
         function Add() {
+            var isActive = null;
+
+            if ($('#isActive').val() === "on") {
+                isActive = true;
+            }
+            else {
+                isActive = false;
+            }
+
             //lấy giá trị trong textbox
             var data = {
                 Id: $('#categoryId').val(),
                 Title: $('#title').val(),
                 ThumbPath: $('#thumble').val(),
-                IsActive: $('#isActive').val()
+                IsActive: isActive
             };
+            console.log("data: ", data);
             $.ajax({
-                url: "/PhotoCategory/Add/",
+                url: "/PhotoCategory/CreateOrUpdatePhotoCategory/",
                 data: JSON.stringify(data),
                 contentType: "application/json;charset=utf-8",
                 dataType: 'json',
                 type: "POST",
                 success: function (result) {
                     //load data
-                    loadData();
+                    location.reload(true);
                     //hide myModal
                     $('#myModal').modal('hide');
                 },
