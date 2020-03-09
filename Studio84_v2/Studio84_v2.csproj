@@ -1081,6 +1081,7 @@
     <Content Include="Areas\Administrator\Assets\css\bootstrap-datetimepicker.min.css" />
     <Content Include="Areas\Administrator\Assets\css\font-face.css" />
     <Content Include="Areas\Administrator\Assets\css\pagination.css" />
+    <Content Include="Areas\Administrator\Assets\css\sweetalert2.min.css" />
     <Content Include="Areas\Administrator\Assets\css\theme.css" />
     <Content Include="Areas\Administrator\Assets\fonts\poppins\poppins-v5-latin-100.svg" />
     <Content Include="Areas\Administrator\Assets\fonts\poppins\poppins-v5-latin-100italic.svg" />
@@ -1121,6 +1122,7 @@
     <Content Include="Areas\Administrator\Assets\js\main.js" />
     <Content Include="Areas\Administrator\Assets\js\moment.js" />
     <Content Include="Areas\Administrator\Assets\js\pagination.min.js" />
+    <Content Include="Areas\Administrator\Assets\js\sweetalert2.all.min.js" />
     <Content Include="Areas\Administrator\Assets\media\9606031aabebde32fa96edeff071a132.jpg" />
     <Content Include="Areas\Administrator\Assets\vendor\animsition\animsition.min.css" />
     <Content Include="Areas\Administrator\Assets\vendor\animsition\animsition.min.js" />
@@ -3184,6 +3186,7 @@
     <Content Include="Areas\Administrator\Assets\ckeditor\skins\moono-lisa\readme.md" />
     <Content Include="Areas\Administrator\Assets\ckfinder\plugins\fileeditor\codemirror\LICENSE" />
     <Content Include="Areas\Administrator\Assets\ckfinder\userfiles\.htaccess" />
+    <Content Include="Areas\Administrator\Views\PhotoPost\Index.cshtml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -3237,7 +3240,6 @@
     <Folder Include="Areas\Administrator\Views\Home\" />
     <Folder Include="Areas\Administrator\Views\OtherCategory\" />
     <Folder Include="Areas\Administrator\Views\OtherPost\" />
-    <Folder Include="Areas\Administrator\Views\PhotoPost\" />
     <Folder Include="Areas\Administrator\Views\PriceCategory\" />
     <Folder Include="Areas\Administrator\Views\PricePost\" />
     <Folder Include="Areas\Administrator\Views\Role\" />

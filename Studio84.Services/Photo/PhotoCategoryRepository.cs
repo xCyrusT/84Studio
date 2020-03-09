@@ -11,8 +11,8 @@ namespace Studio84.Services
 {
     public class PhotoCategoryRepository
     {
-        protected Studio84DbContext db = null;
-        protected DbSet<PHOTOCATEGORIES> table = null;
+        private Studio84DbContext db = null;
+        private DbSet<PHOTOCATEGORIES> table = null;
 
         public PhotoCategoryRepository()
         {
@@ -49,6 +49,30 @@ namespace Studio84.Services
             return result;
         }
 
+        public PhotoCategoryDto GetById(long id)
+        {
+            PhotoCategoryDto result = new PhotoCategoryDto();
+
+            try
+            {
+                var query = table.Find(id);
+
+                if (query != null)
+                {
+                    result.Id = query.Id;
+                    result.Title = query.Title;
+                    result.ThumbPath = query.ThumbPath;
+                    result.IsActive = query.IsActive;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return result;
+        }
+
         public long CreateOrUpdatePhotoCategory(PhotoCategoryInputDto input)
         {
             long id = -1;
@@ -66,13 +90,32 @@ namespace Studio84.Services
             }
             catch (Exception ex)
             {
-                throw;
+                throw new Exception(ex.Message);
             }
 
             return id;
         }
 
-        public long CreatePhotoCategory(PhotoCategoryInputDto input)
+        public long DeletePhotoCategory(long id)
+        {
+            long result = -1;
+
+            try
+            {
+                var existing = table.Find(id);
+                table.Remove(existing);
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {            
+                throw new Exception(ex.Message);
+            }
+
+            return result;
+        }
+
+        //Private method
+        private long CreatePhotoCategory(PhotoCategoryInputDto input)
         {
             PHOTOCATEGORIES data = new PHOTOCATEGORIES();
 
@@ -87,7 +130,7 @@ namespace Studio84.Services
             return data.Id;
         }
 
-        public long UpdatePhotoCategory(PhotoCategoryInputDto input)
+        private long UpdatePhotoCategory(PhotoCategoryInputDto input)
         {
             PHOTOCATEGORIES data = new PHOTOCATEGORIES();
 
@@ -97,6 +140,7 @@ namespace Studio84.Services
             data.IsActive = input.IsActive;
 
             db.PhotoCategories.Attach(data);
+            db.Entry(data).State = EntityState.Modified;
             db.SaveChanges();
 
             return data.Id;

@@ -34,9 +34,25 @@ namespace Studio84_v2.Areas.Administrator.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult GetPhotoCategoryById(long id)
+        {
+            JsonResult result = new JsonResult();
+
+            PhotoCategoryDto data = photoRepos.GetById(id);
+
+            result.Data = data;
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult CreateOrUpdatePhotoCategory(PhotoCategoryInputDto data)
         {
             return Json(photoRepos.CreateOrUpdatePhotoCategory(data), JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult DeletePhotoCategory(long id)
+        {
+            return Json(photoRepos.DeletePhotoCategory(id), JsonRequestBehavior.AllowGet);
         }
     }
 }
