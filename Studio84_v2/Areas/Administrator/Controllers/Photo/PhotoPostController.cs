@@ -62,5 +62,14 @@ namespace Studio84_v2.Areas.Administrator.Controllers
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult DeletePhotoPost(long id)
+        {
+            JsonResult result = new JsonResult();
+
+            result.Data = photoPostRepo.DeletePhotoPost(id);
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
     }
 }

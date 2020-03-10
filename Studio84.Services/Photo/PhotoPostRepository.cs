@@ -129,9 +129,23 @@ namespace Studio84.Services
 
             try
             {
-                var existing = _photoCateRepos.Find(id);
-                _photoCateRepos.Remove(existing);
-                db.SaveChanges();
+                var existing = _photoPostRepos.Find(id);
+
+                if (existing !=null)
+                {
+                    var query = _mediaRepos.Where(x => x.PostId == id).ToList();
+                    if (query.Count > 0)
+                    {
+                        foreach (var item in query)
+                        {
+                            _mediaRepos.Remove(item);
+                        }
+                        db.SaveChanges();
+                    }
+
+                    _photoPostRepos.Remove(existing);
+                    db.SaveChanges();
+                }
 
                 result = "success";
             }
