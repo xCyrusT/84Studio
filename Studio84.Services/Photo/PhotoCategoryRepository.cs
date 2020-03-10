@@ -137,7 +137,7 @@ namespace Studio84.Services
             data.ThumbPath = input.ThumbPath;
             data.IsActive = true;
 
-            db.PhotoCategories.Add(data);
+            _photoCateRepos.Add(data);
 
             db.SaveChanges();
 
@@ -153,7 +153,7 @@ namespace Studio84.Services
             data.ThumbPath = input.ThumbPath;
             data.IsActive = input.IsActive;
 
-            db.PhotoCategories.Attach(data);
+            _photoCateRepos.Attach(data);
             db.Entry(data).State = EntityState.Modified;
             db.SaveChanges();
 

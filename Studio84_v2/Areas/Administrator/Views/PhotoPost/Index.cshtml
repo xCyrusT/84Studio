@@ -67,7 +67,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <!-- DATA TABLE -->
-                    <h3 class="title-5 m-b-35">Danh mục chụp ảnh</h3>
+                    <h3 class="title-5 m-b-35">Danh mục bài viết chụp ảnh</h3>
                     <div>
                         <button class="au-btn au-btn-icon au-btn--green au-btn--small" data-toggle="modal" data-target="#mediumModal" onclick="return Reset();">
                             <i class="zmdi zmdi-plus"></i>Thêm mới
@@ -88,7 +88,7 @@
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="mediumModalLabel">Danh mục chụp ảnh</h5>
+                            <h5 class="modal-title" id="mediumModalLabel">Danh mục bài viết chụp ảnh</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -96,19 +96,16 @@
                         <div class="modal-body">
                             <form name="createOrEdit">
                                 <div class="form-group">
-                                    <label>Mã danh mục</label>
-                                    <input type="text" id="categoryId" readonly class="form-control" />
+                                    <label>Mã bài viết</label>
+                                    <input type="text" id="postId" readonly class="form-control" />
                                 </div>
                                 <div class="form-group">
                                     <label>Tiêu đề</label><span style="color:red;"> *</span>
                                     <input type="text" name="title" id="title" class="form-control" required />
                                 </div>
                                 <div class="form-group">
-                                    <label>Đường dẫn ảnh</label>
-                                    <div style="display:flex">
-                                        <input type="text" id="thumble" class="form-control" style="width:87%;" />
-                                        <button type="button" class="btn btn-primary" id="btnSelectImg">Chọn ảnh</button>
-                                    </div>
+                                    <label>Danh mục chụp ảnh</label><span style="color:red;"> *</span>
+                                    <select class="photoCategory" id="photoCategory" name="state"></select>
                                 </div>
                                 <div class="form-group">
                                     <label>Trạng thái</label>
@@ -117,6 +114,22 @@
                                         <span data-on="Kích hoạt" data-off="Ẩn" class="switch-label"></span>
                                         <span class="switch-handle"></span>
                                     </label>
+                                </div>
+                                <div class="form-group">
+                                    <div style="display:flex;">
+                                        <label>Đường dẫn ảnh</label>
+                                        <button type="button" class="btn btn-default" id="addImg" style="margin-left:10px; margin-top:-10px;" title="Thêm ảnh">
+                                            <span>
+                                                <i class="fa fa-plus"></i>
+                                            </span>
+                                        </button>
+                                    </div>
+                                    <div id="lstImg">
+                                        <div style="display:flex;margin-bottom:2px;">
+                                            <input type="text" id="thumble0" class="form-control" style="width:87%;" />
+                                            <button type="button" class="btn btn-primary" id="btnSelectImg" onclick="return SelectImg(0)">Chọn ảnh</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </form>
                         </div>
@@ -135,6 +148,8 @@
 
 @section Scripts{
     <script>
+        var imgCount = 1;
+
         $(document).ready(function () {
             var container = $('#pagination');
 
@@ -142,7 +157,7 @@
                 dataSource: function (done) {
                     $.ajax({
                         type: 'GET',
-                        url: '/PhotoCategory/GetAllPhotoCategory',
+                        url: '/PhotoPost/GetAllPhotoPost',
                         contentType: "application/json; charset=utf-8",
                         dataType: "json",
                         success: function (response) {
@@ -162,7 +177,7 @@
                     }
                 },
                 callback: function (response, pagination) {
-                    var dataHtml = '<table class="table table-data2"><thead><tr><th>STT</th><th>Tiêu đề</th><th>Đường dẫn ảnh</th><th>Trạng thái</th><th></th></tr ></thead><tbody>';
+                    var dataHtml = '<table class="table table-data2"><thead><tr><th>STT</th><th>Tiêu đề</th><th>Danh mục</th><th>Trạng thái</th><th></th></tr ></thead><tbody>';
 
                     if (response.length < 1) {
                         dataHtml += '<tr class="tr-shadow">';
@@ -175,7 +190,7 @@
                             dataHtml += '<tr class="tr-shadow">';
                             dataHtml += '<td>' + stt + '</td>';
                             dataHtml += '<td>' + item.Title + '</td>';
-                            dataHtml += '<td>' + item.ThumbPath + '</td>';
+                            dataHtml += '<td>' + item.PhotoCategoryName + '</td>';
 
                             if (item.IsActive == true) {
                                 dataHtml += '<td><span id="statusActive">Kích hoạt</span></td>';
@@ -198,23 +213,65 @@
                 }
             });
 
-            $('#btnSelectImg').on('click', function () {
-                var finder = new CKFinder();
+            $.ajax({
+                type: "GET",
+                url: '/PhotoPost/GetAllPhotoCategory',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (res) {
+                    var resultData = res.Data;
 
-                finder.selectActionFunction = function (url) {
-                    $('#thumble').val(url);
+                    $.each(resultData, function (i, item) {
+                        $("#photoCategory").append($("<option></option>").val(item.Id).html(item.Title));
+                    });
                 }
-
-                finder.popup();
             });
+
+            $('.photoCategory').select2({
+                dropdownParent: $('#mediumModal'),
+                placeholder: 'Chọn danh mục',
+                dropdownPosition: 'below'
+            });
+
+            $('#addImg').click(function () {
+                if (imgCount < 15) {
+                    var lstImgHTML = $('#lstImg');
+
+                    var id = 'thumble' + imgCount;
+
+                    var newImg = '<div style="display:flex;margin-bottom:2px;">';
+                    newImg += '<input type="text" id="' + id + '" class="form-control" style="width:87%;" />';
+                    newImg += '<button type="button" class="btn btn-primary" id="btnSelectImg" onclick="return SelectImg(' + imgCount + ')">Chọn ảnh</button>';
+                    newImg += '</div>';
+
+                    lstImgHTML.append(newImg);
+
+                    imgCount++;
+                }
+            })
         });
+
+        function SelectImg(index) {
+            console.log(index);
+            var id = '#thumble' + index;
+            var finder = new CKFinder();
+
+            finder.selectActionFunction = function (url) {
+                $(id).val(url);
+            }
+
+            finder.popup();
+        }
 
         function Reset() {
             //reset textbox
-            $('#categoryId').val("");
+            $('#postId').val("");
             $('#title').val("");
-            $('#thumble').val("");
             $('#isActive').prop('checked', true);
+            for (var i = 0; i < 14; i++) {
+                var id = '#thumble' + i;
+                $(id).val("");
+            }
 
             //show button Add
             $('#btnAdd').show();
@@ -225,6 +282,10 @@
 
         //Add data function
         function Add() {
+            //Get PhotoCategoryId
+            var photoCategoryId = $('#photoCategory').find('option:selected').val();
+
+            //Get data IsActive
             var isActive = null;
             if ($('#isActive').val() === "on") {
                 isActive = true;
@@ -233,12 +294,25 @@
                 isActive = false;
             }
 
+            //Get list medias
+            var lstImg = [];
+            for (var i = 0; i < 15; i++) {
+                var id = '#thumble' + i;
+
+                var imgPath = $(id).val();
+
+                if (imgPath != undefined || imgPath != null || imgPath != "") {
+                    lstImg.push({ ImgPath: imgPath });
+                }
+            }
+
             //lấy giá trị trong textbox
             var data = {
-                Id: $('#categoryId').val(),
+                Id: $('#postId').val(),
                 Title: $('#title').val(),
-                ThumbPath: $('#thumble').val(),
-                IsActive: isActive
+                PhotoCategoryId: photoCategoryId,
+                IsActive: isActive,
+                LstMedias: lstImg
             };
 
             if (data.Title == null || data.Title == "") {
@@ -250,7 +324,7 @@
             }
             else {
                 $.ajax({
-                    url: "/PhotoCategory/CreateOrUpdatePhotoCategory/",
+                    url: "/PhotoPost/CreateOrUpdatePhotoPost/",
                     data: JSON.stringify(data),
                     contentType: "application/json;charset=utf-8",
                     dataType: 'json',
@@ -264,10 +338,13 @@
                             timer: 1500
                         }).then(() => {
                             //reset textbox
-                            $('#categoryId').val("");
+                            $('#postId').val("");
                             $('#title').val("");
-                            $('#thumble').val("");
-                            $('#isActive').val("");
+                            $('#isActive').prop('checked', true);
+                            for (var i = 0; i < 15; i++) {
+                                var id = '#thumble' + i;
+                                $(id).val("");
+                            }
 
                             //hide myModal
                             $('#myModal').modal('hide');
@@ -290,20 +367,40 @@
         //get data by id function
         function GetById(id) {
             $.ajax({
-                url: "/PhotoCategory/GetPhotoCategoryById/" + id,
+                url: "/PhotoPost/GetPhotoPostById/" + id,
                 contentType: "application/json;charset=utf-8",
                 type: "GET",
                 dataType: "json",
                 success: function (result) {
-                    $('#categoryId').val(result.Data.Id);
+                    $('#postId').val(result.Data.Id);
                     $('#title').val(result.Data.Title);
-                    $('#thumble').val(result.Data.ThumbPath);
+                    $('#photoCategory').select2('data', { id: result.Data.PhotoCategoryId, title: result.Data.PhotoCategoryName });
 
                     if (result.Data.IsActive == true) {
                         $('#isActive').prop('checked', true);
                     }
                     else {
                         $('#isActive').prop('checked', false);
+                    }
+
+                    if (result.Data.LstMedia.length > 0) {
+                        imgCount = result.Data.LstMedia.length - 1;
+
+                        var lstImgHTML = $('#lstImg');
+                        lstImgHTML.empty();
+
+                        for (var i = 0; i < result.Data.LstMedia.length; i++) {
+                            var value = result.Data.LstMedia[i].ImgPath;
+                            var id = 'thumble' + i;
+                            var newImg = '<div style="display:flex;margin-bottom:2px;">';
+                            newImg += '<input type="text" id="' + id + '" class="form-control" style="width:87%;" />';
+                            newImg += '<button type="button" class="btn btn-primary" id="btnSelectImg" onclick="return SelectImg(' + i + ')">Chọn ảnh</button>';
+                            newImg += '</div>';
+
+                            lstImgHTML.append(newImg);
+
+                            $('#'+id).val(value);
+                        }
                     }
 
                     //show modal
@@ -325,116 +422,10 @@
 
         //update data function
         function Update() {
-            var isActive = null;
-            if ($('#isActive').is(':checked') ? 'on' : 'off' === "on") {
-                isActive = true;
-            }
-            else {
-                isActive = false;
-            }
-
-            var data = {
-                Id: $('#categoryId').val(),
-                Title: $('#title').val(),
-                ThumbPath: $('#thumble').val(),
-                IsActive: isActive
-            };
-            console.log("data: ", data);
-
-            $.ajax({
-                url: "/PhotoCategory/CreateOrUpdatePhotoCategory/",
-                data: JSON.stringify(data),
-                type: "POST",
-                dataType: "json",
-                contentType: "application/json;charset=utf-8",
-                success: function (rerult) {
-                    Swal.fire({
-                        position: 'center',
-                        icon: 'success',
-                        title: 'Sửa thành công',
-                        showConfirmButton: false,
-                        timer: 1500
-                    }).then(() => {
-                        //load data
-                        location.reload(true);
-
-                        //reset textbox
-                        $('#categoryId').val("");
-                        $('#title').val("");
-                        $('#thumble').val("");
-                        $('#isActive').prop('checked', true);
-
-                        //hide myModal
-                        $('#mediumModal').modal('hide');
-                    });
-                },
-                error: function (errormessage) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Lỗi',
-                        text: errormessage.responseText
-                    });
-                }
-            });
         }
 
         //delete data function
         function Delete(id) {
-            Swal.fire({
-                title: 'Bạn chắc chứ ?',
-                text: "Bạn thực sự muốn xoá đối tượng này!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Đồng ý',
-                cancelButtonText: 'Huỷ'
-            }).then((result) => {
-                if (result.value) {
-                    $.ajax({
-                        url: "/PhotoCategory/DeletePhotoCategory/" + id,
-                        contentType: "application/json;charset=utf-8",
-                        dataType: "json",
-                        type: "GET",
-                        success: function (result2) {
-                            if (result2.Data == "success") {
-                                Swal.fire(
-                                    'Đã xoá!',
-                                    'Đã xoá thành công',
-                                    'success',
-                                    1500
-                                )
-                                location.reload(true);
-                            }
-                            else {
-                                var mess = "";
-                                if (result2.Data == "failed") {
-                                    mess = "Xoá thất bại !"
-                                }
-                                else if (result2.Data == "used") {
-                                    mess = "Đối tượng đang được sử dụng tại nơi khác, vui lòng kiểm tra lại !";
-                                }
-                                else {
-                                    mess = result2.Data;
-                                }
-
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Xảy ra lỗi',
-                                    text: mess
-                                })
-                            }
-                        },
-                        error: function (errormessage) {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Lỗi',
-                                text: errormessage.responseText
-                            });
-                        }
-                    });
-                }
-            })
         }
     </script>
 }

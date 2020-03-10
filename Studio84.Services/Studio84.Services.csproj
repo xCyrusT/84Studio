@@ -55,12 +55,15 @@
     <Compile Include="Camera\CameraCatetoryRepository.cs" />
     <Compile Include="Camera\CameraPostRepository.cs" />
     <Compile Include="Feedback\FeedbackRepository.cs" />
+    <Compile Include="Media\Dto\MediaDto.cs" />
     <Compile Include="Media\Dto\MediaInputDto.cs" />
     <Compile Include="Media\MediaRepository.cs" />
     <Compile Include="OtherCategory\OtherCategoryRepository.cs" />
     <Compile Include="OtherCategory\OtherPostRepository.cs" />
     <Compile Include="Photo\Dto\PhotoCategoryDto.cs" />
     <Compile Include="Photo\Dto\PhotoCategoryInputDto.cs" />
+    <Compile Include="Photo\Dto\PhotoPostDto.cs" />
+    <Compile Include="Photo\Dto\PhotoPostInputDto.cs" />
     <Compile Include="Photo\PhotoCategoryRepository.cs" />
     <Compile Include="Photo\PhotoPostRepository.cs" />
     <Compile Include="Price\PricePostRepository.cs" />

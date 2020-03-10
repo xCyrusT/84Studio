@@ -1081,6 +1081,7 @@
     <Content Include="Areas\Administrator\Assets\css\bootstrap-datetimepicker.min.css" />
     <Content Include="Areas\Administrator\Assets\css\font-face.css" />
     <Content Include="Areas\Administrator\Assets\css\pagination.css" />
+    <Content Include="Areas\Administrator\Assets\css\select2.min.css" />
     <Content Include="Areas\Administrator\Assets\css\sweetalert2.min.css" />
     <Content Include="Areas\Administrator\Assets\css\theme.css" />
     <Content Include="Areas\Administrator\Assets\fonts\poppins\poppins-v5-latin-100.svg" />
@@ -1122,6 +1123,7 @@
     <Content Include="Areas\Administrator\Assets\js\main.js" />
     <Content Include="Areas\Administrator\Assets\js\moment.js" />
     <Content Include="Areas\Administrator\Assets\js\pagination.min.js" />
+    <Content Include="Areas\Administrator\Assets\js\select2.min.js" />
     <Content Include="Areas\Administrator\Assets\js\sweetalert2.all.min.js" />
     <Content Include="Areas\Administrator\Assets\media\9606031aabebde32fa96edeff071a132.jpg" />
     <Content Include="Areas\Administrator\Assets\vendor\animsition\animsition.min.css" />
