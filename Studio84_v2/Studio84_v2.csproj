@@ -3190,6 +3190,8 @@
     <Content Include="Areas\Administrator\Assets\ckfinder\userfiles\.htaccess" />
     <Content Include="Areas\Administrator\Views\PhotoPost\Index.cshtml" />
     <Content Include="Areas\Administrator\Views\CameraCategory\Index.cshtml" />
+    <Content Include="Areas\Administrator\Views\CameraPost\Index.cshtml" />
+    <Content Include="Areas\Administrator\Views\PriceCategory\Index.cshtml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -3237,12 +3239,10 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Administrator\Assets\js\plugins\" />
     <Folder Include="Areas\Administrator\Models\" />
-    <Folder Include="Areas\Administrator\Views\CameraPost\" />
     <Folder Include="Areas\Administrator\Views\Feedback\" />
     <Folder Include="Areas\Administrator\Views\Home\" />
     <Folder Include="Areas\Administrator\Views\OtherCategory\" />
     <Folder Include="Areas\Administrator\Views\OtherPost\" />
-    <Folder Include="Areas\Administrator\Views\PriceCategory\" />
     <Folder Include="Areas\Administrator\Views\PricePost\" />
     <Folder Include="Areas\Administrator\Views\Role\" />
     <Folder Include="Areas\Administrator\Views\User\" />
