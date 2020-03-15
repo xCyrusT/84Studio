@@ -37,6 +37,7 @@ namespace Studio84.Services.OtherCategory
                         Id = item.Id,
                         Title = item.Title,
                         ThumbPath = item.ThumbPath,
+                        IsRoot = item.IsRoot,
                         IsActive = item.IsActive
                     };
 
@@ -64,6 +65,7 @@ namespace Studio84.Services.OtherCategory
                     result.Id = query.Id;
                     result.Title = query.Title;
                     result.ThumbPath = query.ThumbPath;
+                    result.IsRoot = query.IsRoot;
                     result.IsActive = query.IsActive;
                 }
             }
@@ -106,9 +108,9 @@ namespace Studio84.Services.OtherCategory
             {
                 var existing = _otherCateRepos.Find(id);
 
-                var photoPost = _otherPostRepos.ToList().Where(x => x.OtherCategoryId == id && x.IsActive == true);
+                var otherPost = _otherPostRepos.ToList().Where(x => x.OtherCategoryId == id && x.IsActive == true);
 
-                if (photoPost.ToList().Count == 0)
+                if (otherPost.ToList().Count == 0)
                 {
                     _otherCateRepos.Remove(existing);
                     db.SaveChanges();
@@ -135,6 +137,7 @@ namespace Studio84.Services.OtherCategory
 
             data.Title = input.Title;
             data.ThumbPath = input.ThumbPath;
+            data.IsRoot = input.IsRoot;
             data.IsActive = input.IsActive;
 
             _otherCateRepos.Add(data);
@@ -151,6 +154,7 @@ namespace Studio84.Services.OtherCategory
             data.Id = input.Id.Value;
             data.Title = input.Title;
             data.ThumbPath = input.ThumbPath;
+            data.IsRoot = input.IsRoot;
             data.IsActive = input.IsActive;
 
             _otherCateRepos.Attach(data);

@@ -1,0 +1,475 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<style>
+    .modal-backdrop {
+        position: inherit;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 1040;
+        background-color: #000;
+    }
+
+    .modal-content {
+        position: relative;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        width: 100%;
+        pointer-events: auto;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid rgba(0,0,0,.2);
+        border-radius: .3rem;
+        outline: 0;
+        margin-top: 10%;
+    }
+
+    .switch.switch-text {
+        position: relative;
+        display: inline-block;
+        vertical-align: top;
+        width: 110px;
+        height: 24px;
+        background-color: transparent;
+        cursor: pointer;
+    }
+
+        .switch.switch-text .switch-input:checked ~ .switch-handle {
+            left: 90px;
+        }
+
+        .switch.switch-text .switch-label {
+            background-color: brown;
+        }
+
+    #statusActive {
+        background-color: green;
+        color: white;
+        border-radius: 3px;
+    }
+
+    #statusInActive {
+        background-color: red;
+        color: white;
+        border-radius: 3px;
+    }
+</style>
+
+<div class="main-content">
+    <div class="section__content section__content--p30">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- DATA TABLE -->
+                    <h3 class="title-5 m-b-35">Danh mục khác</h3>
+                    <div>
+                        <button class="au-btn au-btn-icon au-btn--green au-btn--small" data-toggle="modal" data-target="#mediumModal" onclick="return Reset();">
+                            <i class="zmdi zmdi-plus"></i>Thêm mới
+                        </button>
+                    </div>
+                    <div class="table-data__tool">
+                        <div class="table-data__tool-right">
+                        </div>
+                    </div>
+                    <div class="table-responsive table-responsive-data2" id="pagination">
+                    </div>
+                    <!-- END DATA TABLE -->
+                </div>
+            </div>
+
+            <!--MODAL-->
+            <div class="modal fade" id="mediumModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="mediumModalLabel">Danh mục chụp ảnh</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form name="createOrEdit">
+                                <div class="form-group">
+                                    <label>Mã danh mục</label>
+                                    <input type="text" id="categoryId" readonly class="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Tiêu đề</label><span style="color:red;"> *</span>
+                                    <input type="text" name="title" id="title" class="form-control" required />
+                                </div>
+                                <div class="form-group">
+                                    <label>Đường dẫn ảnh</label>
+                                    <div style="display:flex">
+                                        <input type="text" id="thumble" class="form-control" style="width:87%;" />
+                                        <button type="button" class="btn btn-primary" id="btnSelectImg">Chọn ảnh</button>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-6">
+                                        <label>Trạng thái</label>
+                                        <label class="switch switch-text switch-primary switch-pill">
+                                            <input type="checkbox" class="switch-input" id="isActive" checked="checked">
+                                            <span data-on="Kích hoạt" data-off="Ẩn" class="switch-label"></span>
+                                            <span class="switch-handle"></span>
+                                        </label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Danh mục chính</label>
+                                        <label class="switch switch-text switch-primary switch-pill">
+                                            <input type="checkbox" class="switch-input" id="isRoot" checked="checked">
+                                            <span data-on="Phải" data-off="Không" class="switch-label"></span>
+                                            <span class="switch-handle"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-success" id="btnAdd" onclick="return Add();">Thêm mới</button>
+                            <button type="button" class="btn btn-success" id="btnUpdate" style="display:none" onclick="return Update();">Sửa</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--END MODAL-->
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            var container = $('#pagination');
+
+            container.pagination({
+                dataSource: function (done) {
+                    $.ajax({
+                        type: 'GET',
+                        url: '/OtherCategory/GetAllOtherCategory',
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (response) {
+                            done(response.Data);
+                        }
+                    });
+                },
+                locator: 'items',
+                totalNumberLocator: function (response) {
+                    return Math.floor(Math.random() * (1000 - 100)) + 100;
+                },
+                pageSize: 10,
+                ajax: {
+                    beforeSend: function () {
+                        container.prev().html('Đang tải dữ liệu ...');
+                    }
+                },
+                callback: function (response, pagination) {
+                    var dataHtml = '<table class="table table-data2"><thead><tr><th>STT</th><th>Tiêu đề</th><th>Danh mục chính</th><th>Trạng thái</th><th></th></tr ></thead><tbody>';
+
+                    if (response.length < 1) {
+                        dataHtml += '<tr class="tr-shadow">';
+                        dataHtml += '<td colspan="5"><p>Không có dữ liệu</p></td>';
+                        dataHtml += '</tr>';
+                    }
+                    else {
+                        $.each(response, function (index, item) {
+                            var stt = index + 1;
+                            dataHtml += '<tr class="tr-shadow">';
+                            dataHtml += '<td>' + stt + '</td>';
+                            dataHtml += '<td>' + item.Title + '</td>';
+
+                            if (item.IsRoot == true) {
+                                dataHtml += '<td><span id="statusActive">Phải</span></td>';
+                            }
+                            else {
+                                dataHtml += '<td><span id="statusInActive">Không</span></td>';
+                            }
+
+                            if (item.IsActive == true) {
+                                dataHtml += '<td><span id="statusActive">Kích hoạt</span></td>';
+                            }
+                            else {
+                                dataHtml += '<td><span id="statusInActive">Ẩn</span></td>';
+                            }
+
+                            dataHtml += '<td><div class="table-data-feature">';
+                            dataHtml += '<button class="item" onclick="return GetById(' + item.Id + ')" data-toggle="tooltip" data-placement="top" title="Sửa"><i class="zmdi zmdi-edit"></i></button>';
+                            dataHtml += '<button class="item" onclick="return Delete(' + item.Id + ')" data-toggle="tooltip" data-placement="top" title="Xoá"><i class="zmdi zmdi-delete"></i></button>';
+                            dataHtml += '</div></td>';
+                            dataHtml += '</tr>';
+                        });
+                    }
+
+                    dataHtml += '</tbody></table>';
+
+                    container.prev().html(dataHtml);
+                }
+            });
+
+            $('#btnSelectImg').on('click', function () {
+                var finder = new CKFinder();
+
+                finder.selectActionFunction = function (url) {
+                    $('#thumble').val(url);
+                }
+
+                finder.popup();
+            });
+        });
+
+        function Reset() {
+            //reset textbox
+            $('#categoryId').val("");
+            $('#title').val("");
+            $('#thumble').val("");
+            $('#isRoot').prop('checked', false);
+            $('#isActive').prop('checked', true);
+
+            //show button Add
+            $('#btnAdd').show();
+
+            //hide button Update
+            $('#btnUpdate').hide();
+        }
+
+        //Add data function
+        function Add() {
+            var isRoot = null;
+            if ($('#isRoot').is(':checked') ? 'on' : 'off' === "on") {
+                isRoot = true;
+            }
+            else {
+                isRoot = false;
+            }
+
+            var isActive = null;
+            if ($('#isActive').is(':checked') ? 'on' : 'off' === "on") {
+                isActive = true;
+            }
+            else {
+                isActive = false;
+            }
+
+            //lấy giá trị trong textbox
+            var data = {
+                Id: $('#categoryId').val(),
+                Title: $('#title').val(),
+                ThumbPath: $('#thumble').val(),
+                IsRoot: isRoot,
+                IsActive: isActive
+            };
+            console.log(data);
+
+            if (data.Title == null || data.Title == "") {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Lỗi',
+                    text: 'Vui lòng nhập tiêu đề !'
+                })
+            }
+            else {
+                $.ajax({
+                    url: "/OtherCategory/CreateOrUpdateOtherCategory/",
+                    data: JSON.stringify(data),
+                    contentType: "application/json;charset=utf-8",
+                    dataType: 'json',
+                    type: "POST",
+                    success: function (result) {
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Thêm mới thành công',
+                            showConfirmButton: false,
+                            timer: 1500
+                        }).then(() => {
+                            //reset textbox
+                            Reset();
+
+                            //hide myModal
+                            $('#myModal').modal('hide');
+
+                            //load data
+                            location.reload(true);
+                        });
+                    },
+                    error: function (errormessage) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Lỗi',
+                            text: errormessage.responseText
+                        });
+                    }
+                });
+            }
+        }
+
+        //get data by id function
+        function GetById(id) {
+            $.ajax({
+                url: "/OtherCategory/GetOtherCategoryById/" + id,
+                contentType: "application/json;charset=utf-8",
+                type: "GET",
+                dataType: "json",
+                success: function (result) {
+                    $('#categoryId').val(result.Data.Id);
+                    $('#title').val(result.Data.Title);
+                    $('#thumble').val(result.Data.ThumbPath);
+
+                    if (result.Data.IsRoot == true) {
+                        $('#isRoot').prop('checked', true);
+                    }
+                    else {
+                        $('#isRoot').prop('checked', false);
+                    }
+
+                    if (result.Data.IsActive == true) {
+                        $('#isActive').prop('checked', true);
+                    }
+                    else {
+                        $('#isActive').prop('checked', false);
+                    }
+
+                    //show modal
+                    $('#mediumModal').modal('show');
+                    //hide button Add
+                    $('#btnAdd').hide();
+                    //show button Update
+                    $('#btnUpdate').show();
+                },
+                error: function (errormessage) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Lỗi',
+                        text: errormessage.responseText
+                    });
+                }
+            });
+        }
+
+        //update data function
+        function Update() {
+            var isRoot = null;
+            if ($('#isRoot').is(':checked') ? 'on' : 'off' === "on") {
+                isRoot = true;
+            }
+            else {
+                isRoot = false;
+            }
+
+            var isActive = null;
+            if ($('#isActive').is(':checked') ? 'on' : 'off' === "on") {
+                isActive = true;
+            }
+            else {
+                isActive = false;
+            }
+
+            var data = {
+                Id: $('#categoryId').val(),
+                Title: $('#title').val(),
+                ThumbPath: $('#thumble').val(),
+                IsRoot: isRoot,
+                IsActive: isActive
+            };
+
+            $.ajax({
+                url: "/OtherCategory/CreateOrUpdateOtherCategory/",
+                data: JSON.stringify(data),
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json;charset=utf-8",
+                success: function (rerult) {
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'Sửa thành công',
+                        showConfirmButton: false,
+                        timer: 1500
+                    }).then(() => {
+                        //load data
+                        location.reload(true);
+
+                        //reset textbox
+                        Reset();
+
+                        //hide myModal
+                        $('#mediumModal').modal('hide');
+                    });
+                },
+                error: function (errormessage) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Lỗi',
+                        text: errormessage.responseText
+                    });
+                }
+            });
+        }
+
+        //delete data function
+        function Delete(id) {
+            Swal.fire({
+                title: 'Bạn chắc chứ ?',
+                text: "Bạn thực sự muốn xoá đối tượng này!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Đồng ý',
+                cancelButtonText: 'Huỷ'
+            }).then((result) => {
+                if (result.value) {
+                    $.ajax({
+                        url: "/OtherCategory/DeleteOtherCategory/" + id,
+                        contentType: "application/json;charset=utf-8",
+                        dataType: "json",
+                        type: "GET",
+                        success: function (result2) {
+                            if (result2.Data == "success") {
+                                Swal.fire(
+                                    'Đã xoá!',
+                                    'Đã xoá thành công',
+                                    'success',
+                                    1500
+                                )
+                                location.reload(true);
+                            }
+                            else {
+                                var mess = "";
+                                if (result2.Data == "failed") {
+                                    mess = "Xoá thất bại !"
+                                }
+                                else if (result2.Data == "used") {
+                                    mess = "Đối tượng đang được sử dụng tại nơi khác, vui lòng kiểm tra lại !";
+                                }
+                                else {
+                                    mess = result2.Data;
+                                }
+
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Xảy ra lỗi',
+                                    text: mess
+                                })
+                            }
+                        },
+                        error: function (errormessage) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Lỗi',
+                                text: errormessage.responseText
+                            });
+                        }
+                    });
+                }
+            })
+        }
+    </script>
+}
