@@ -1082,6 +1082,7 @@
     <Content Include="Areas\Administrator\Assets\css\font-face.css" />
     <Content Include="Areas\Administrator\Assets\css\pagination.css" />
     <Content Include="Areas\Administrator\Assets\css\select2.min.css" />
+    <Content Include="Areas\Administrator\Assets\css\summernote.min.css" />
     <Content Include="Areas\Administrator\Assets\css\sweetalert2.min.css" />
     <Content Include="Areas\Administrator\Assets\css\theme.css" />
     <Content Include="Areas\Administrator\Assets\fonts\poppins\poppins-v5-latin-100.svg" />
@@ -1124,7 +1125,9 @@
     <Content Include="Areas\Administrator\Assets\js\moment.js" />
     <Content Include="Areas\Administrator\Assets\js\pagination.min.js" />
     <Content Include="Areas\Administrator\Assets\js\select2.min.js" />
+    <Content Include="Areas\Administrator\Assets\js\summernote.min.js" />
     <Content Include="Areas\Administrator\Assets\js\sweetalert2.all.min.js" />
+    <Content Include="Areas\Administrator\Assets\js\ui\icons.svg" />
     <Content Include="Areas\Administrator\Assets\media\9606031aabebde32fa96edeff071a132.jpg" />
     <Content Include="Areas\Administrator\Assets\vendor\animsition\animsition.min.css" />
     <Content Include="Areas\Administrator\Assets\vendor\animsition\animsition.min.js" />
@@ -3192,6 +3195,12 @@
     <Content Include="Areas\Administrator\Views\CameraCategory\Index.cshtml" />
     <Content Include="Areas\Administrator\Views\CameraPost\Index.cshtml" />
     <Content Include="Areas\Administrator\Views\PriceCategory\Index.cshtml" />
+    <Content Include="Areas\Administrator\Assets\css\font\summernote.eot" />
+    <Content Include="Areas\Administrator\Assets\css\font\summernote.ttf" />
+    <Content Include="Areas\Administrator\Assets\css\font\summernote.woff" />
+    <Content Include="Areas\Administrator\Assets\css\font\summernote.woff2" />
+    <Content Include="Areas\Administrator\Views\OtherCategory\Index.cshtml" />
+    <Content Include="Areas\Administrator\Views\OtherPost\Index.cshtml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -3241,8 +3250,6 @@
     <Folder Include="Areas\Administrator\Models\" />
     <Folder Include="Areas\Administrator\Views\Feedback\" />
     <Folder Include="Areas\Administrator\Views\Home\" />
-    <Folder Include="Areas\Administrator\Views\OtherCategory\" />
-    <Folder Include="Areas\Administrator\Views\OtherPost\" />
     <Folder Include="Areas\Administrator\Views\PricePost\" />
     <Folder Include="Areas\Administrator\Views\Role\" />
     <Folder Include="Areas\Administrator\Views\User\" />

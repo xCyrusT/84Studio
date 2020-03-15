@@ -67,7 +67,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <!-- DATA TABLE -->
-                    <h3 class="title-5 m-b-35">Danh mục chụp ảnh</h3>
+                    <h3 class="title-5 m-b-35">Danh mục báo giá</h3>
                     <div>
                         <button class="au-btn au-btn-icon au-btn--green au-btn--small" data-toggle="modal" data-target="#mediumModal" onclick="return Reset();">
                             <i class="zmdi zmdi-plus"></i>Thêm mới
@@ -88,7 +88,7 @@
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="mediumModalLabel">Danh mục chụp ảnh</h5>
+                            <h5 class="modal-title" id="mediumModalLabel">Danh mục bài viết chụp ảnh</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -104,6 +104,14 @@
                                     <input type="text" name="title" id="title" class="form-control" required />
                                 </div>
                                 <div class="form-group">
+                                    <label>Trạng thái</label>
+                                    <label class="switch switch-text switch-primary switch-pill">
+                                        <input type="checkbox" class="switch-input" id="isActive" checked="checked">
+                                        <span data-on="Kích hoạt" data-off="Ẩn" class="switch-label"></span>
+                                        <span class="switch-handle"></span>
+                                    </label>
+                                </div>
+                                <div class="form-group">
                                     <label>Đường dẫn ảnh</label>
                                     <div style="display:flex">
                                         <input type="text" id="thumble" class="form-control" style="width:87%;" />
@@ -111,12 +119,8 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label>Trạng thái</label>
-                                    <label class="switch switch-text switch-primary switch-pill">
-                                        <input type="checkbox" class="switch-input" id="isActive" checked="checked">
-                                        <span data-on="Kích hoạt" data-off="Ẩn" class="switch-label"></span>
-                                        <span class="switch-handle"></span>
-                                    </label>
+                                    <label>Nội dung</label>
+                                    <textarea id="description" class="form-control"></textarea>
                                 </div>
                             </form>
                         </div>
@@ -142,7 +146,7 @@
                 dataSource: function (done) {
                     $.ajax({
                         type: 'GET',
-                        url: '/PhotoCategory/GetAllPhotoCategory',
+                        url: '/PriceCategory/GetAllPriceCategory',
                         contentType: "application/json; charset=utf-8",
                         dataType: "json",
                         success: function (response) {
@@ -206,14 +210,32 @@
 
                 finder.popup();
             });
+            
+            $('#description').summernote();
         });
+
+        function SelectImg(index) {
+            var id = '#thumble' + index;
+            var finder = new CKFinder();
+
+            finder.selectActionFunction = function (url) {
+                $(id).val(url);
+            }
+
+            finder.popup();
+        }
 
         function Reset() {
             //reset textbox
             $('#categoryId').val("");
             $('#title').val("");
             $('#thumble').val("");
+            $('#description').summernote('code', "");
             $('#isActive').prop('checked', true);
+            for (var i = 0; i < 14; i++) {
+                var id = '#thumble' + i;
+                $(id).val("");
+            }
 
             //show button Add
             $('#btnAdd').show();
@@ -237,6 +259,7 @@
                 Id: $('#categoryId').val(),
                 Title: $('#title').val(),
                 ThumbPath: $('#thumble').val(),
+                Description: $('#description').val(),
                 IsActive: isActive
             };
 
@@ -249,7 +272,7 @@
             }
             else {
                 $.ajax({
-                    url: "/PhotoCategory/CreateOrUpdatePhotoCategory/",
+                    url: "/PriceCategory/CreateOrUpdatePriceCategory/",
                     data: JSON.stringify(data),
                     contentType: "application/json;charset=utf-8",
                     dataType: 'json',
@@ -266,6 +289,7 @@
                             $('#categoryId').val("");
                             $('#title').val("");
                             $('#thumble').val("");
+                            $('#description').summernote('code', "");
                             $('#isActive').val("");
 
                             //hide myModal
@@ -289,14 +313,16 @@
         //get data by id function
         function GetById(id) {
             $.ajax({
-                url: "/PhotoCategory/GetPhotoCategoryById/" + id,
+                url: "/PriceCategory/GetPriceCategoryById/" + id,
                 contentType: "application/json;charset=utf-8",
                 type: "GET",
                 dataType: "json",
                 success: function (result) {
+                    console.log(result.Data.Description);
                     $('#categoryId').val(result.Data.Id);
                     $('#title').val(result.Data.Title);
                     $('#thumble').val(result.Data.ThumbPath);
+                    $('#description').summernote('code', result.Data.Description);
 
                     if (result.Data.IsActive == true) {
                         $('#isActive').prop('checked', true);
@@ -336,11 +362,12 @@
                 Id: $('#categoryId').val(),
                 Title: $('#title').val(),
                 ThumbPath: $('#thumble').val(),
+                Description: $('#description').val(),
                 IsActive: isActive
             };
 
             $.ajax({
-                url: "/PhotoCategory/CreateOrUpdatePhotoCategory/",
+                url: "/PriceCategory/CreateOrUpdatePriceCategory/",
                 data: JSON.stringify(data),
                 type: "POST",
                 dataType: "json",
@@ -360,6 +387,7 @@
                         $('#categoryId').val("");
                         $('#title').val("");
                         $('#thumble').val("");
+                        $('#description').summernote('code',"");
                         $('#isActive').prop('checked', true);
 
                         //hide myModal
@@ -390,7 +418,7 @@
             }).then((result) => {
                 if (result.value) {
                     $.ajax({
-                        url: "/PhotoCategory/DeletePhotoCategory/" + id,
+                        url: "/PriceCategory/DeletePriceCategory/" + id,
                         contentType: "application/json;charset=utf-8",
                         dataType: "json",
                         type: "GET",

@@ -64,6 +64,10 @@
     <Compile Include="Migrations\202003082126008_ThuLK.designer.cs">
       <DependentUpon>202003082126008_ThuLK.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202003151340317_Alter_Table_PriceCategory_Add_Column_Description.cs" />
+    <Compile Include="Migrations\202003151340317_Alter_Table_PriceCategory_Add_Column_Description.designer.cs">
+      <DependentUpon>202003151340317_Alter_Table_PriceCategory_Add_Column_Description.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="OTHERCATEGORIES.cs" />
     <Compile Include="OTHERPOSTS.cs" />
@@ -86,6 +90,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202003082126008_ThuLK.resx">
       <DependentUpon>202003082126008_ThuLK.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003151340317_Alter_Table_PriceCategory_Add_Column_Description.resx">
+      <DependentUpon>202003151340317_Alter_Table_PriceCategory_Add_Column_Description.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

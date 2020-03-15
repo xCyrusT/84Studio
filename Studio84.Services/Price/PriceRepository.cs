@@ -36,6 +36,7 @@ namespace Studio84.Services
                     {
                         Id = item.Id,
                         Title = item.Title,
+                        Description = item.Description,
                         ThumbPath = item.ThumbPath,
                         IsActive = item.IsActive
                     };
@@ -63,6 +64,7 @@ namespace Studio84.Services
                 {
                     result.Id = query.Id;
                     result.Title = query.Title;
+                    result.Description = query.Description;
                     result.ThumbPath = query.ThumbPath;
                     result.IsActive = query.IsActive;
                 }
@@ -75,7 +77,7 @@ namespace Studio84.Services
             return result;
         }
 
-        public long CreateOrUpdatePhotoCategory(PriceCategoryInputDto input)
+        public long CreateOrUpdatePriceCategory(PriceCategoryInputDto input)
         {
             long id = -1;
 
@@ -98,7 +100,7 @@ namespace Studio84.Services
             return id;
         }
 
-        public string DeletePhotoCategory(long id)
+        public string DeletePriceCategory(long id)
         {
             string result = "failed";
 
@@ -106,9 +108,9 @@ namespace Studio84.Services
             {
                 var existing = _priceCateRepos.Find(id);
 
-                var photoPost = _pricePostRepos.ToList().Where(x => x.PriceCategoryId == id && x.IsActive == true);
+                var pricePost = _pricePostRepos.ToList().Where(x => x.PriceCategoryId == id && x.IsActive == true);
 
-                if (photoPost.ToList().Count == 0)
+                if (pricePost.ToList().Count == 0)
                 {
                     _priceCateRepos.Remove(existing);
                     db.SaveChanges();
@@ -134,6 +136,7 @@ namespace Studio84.Services
             PRICECATEGORIES data = new PRICECATEGORIES();
 
             data.Title = input.Title;
+            data.Description = input.Description;
             data.ThumbPath = input.ThumbPath;
             data.IsActive = input.IsActive;
 
@@ -150,6 +153,7 @@ namespace Studio84.Services
 
             data.Id = input.Id.Value;
             data.Title = input.Title;
+            data.Description = input.Description;
             data.ThumbPath = input.ThumbPath;
             data.IsActive = input.IsActive;
 

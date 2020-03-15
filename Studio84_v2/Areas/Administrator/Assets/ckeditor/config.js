@@ -5,7 +5,7 @@
 
 CKEDITOR.editorConfig = function( config ) {
 	// Define changes to default configuration here. For example:
-	config.language = 'en';
+	config.language = 'vi';
 	// config.uiColor = '#AADC6E';
     config.filebrowserBrowseUrl = '/Areas/Administrator/Assets/ckfinder/ckfinder.html';
     config.filebrowserImageBrowseUrl = '/Areas/Administrator/Assets/ckfinder/ckfinder.html?type=Images';
@@ -13,4 +13,6 @@ CKEDITOR.editorConfig = function( config ) {
     config.filebrowserUploadUrl = '/Areas/Administrator/Assets/ckfinder/core/connector/aspx/connector.aspx?command=QuickUpload&type=Files';
     config.filebrowserImageUploadUrl = '/Areas/Administrator/Assets/ckfinder/core/connector/aspx/connector.aspx?command=QuickUpload&type=Images';
     config.filebrowserFlashUploadUrl = '/Areas/Administrator/Assets/ckfinder/core/connector/aspx/connector.aspx?command=QuickUpload&type=Flash';
+
+    CKFinder.setupCKEditor(null, '/Areas/Administrator/Assets/ckfinder/');
 };
