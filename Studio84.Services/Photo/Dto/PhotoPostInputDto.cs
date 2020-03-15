@@ -12,6 +12,7 @@ namespace Studio84.Services.Photo.Dto
         public long? Id { get; set; }
         public string Title { get; set; }
         public long PhotoCategoryId { get; set; }
+        public string ThumbPath { get; set; }
         public bool IsActive { get; set; }
 
         public List<MediaInputDto> LstMedias { get; set; }

@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewBag.Title = "ShowAllPostOfCategory";
+}
+
+<style>
+    .nupacachi-content {
+        margin-top: 25px;
+    }
+</style>
+
+<div class="container">
+    <div class="breadcrumbs-top">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page"><a href="@Url.Action("Index", "ChupAnh")">Chụp ảnh</a></li>
+                <li class="breadcrumb-item active" aria-current="page">@ViewBag.Category.Title</li>
+            </ol>
+        </nav>
+    </div>
+
+
+    <div class="panel">
+        <div class="panel-body">
+            <div class="row">
+                @foreach (var item in ViewBag.Category.LstChild)
+                {
+                    <div class="col-md-4">
+                        <div class="member-item">
+                            <div class="item wow fadeInRight">
+                                <div class="item-img">
+                                    <a href="">
+                                        <img class="" src="@item.ThumbPath" alt="">
+                                    </a>
+                                    <div class="item-content">
+                                        <div class="content"><a href="/ChupAnh/Post?id=@item.Id">@item.Title</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

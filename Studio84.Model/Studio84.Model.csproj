@@ -68,6 +68,10 @@
     <Compile Include="Migrations\202003151340317_Alter_Table_PriceCategory_Add_Column_Description.designer.cs">
       <DependentUpon>202003151340317_Alter_Table_PriceCategory_Add_Column_Description.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202003151951136_Alter_Table_PhotoPost_Add_Column_ThumbPath.cs" />
+    <Compile Include="Migrations\202003151951136_Alter_Table_PhotoPost_Add_Column_ThumbPath.designer.cs">
+      <DependentUpon>202003151951136_Alter_Table_PhotoPost_Add_Column_ThumbPath.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="OTHERCATEGORIES.cs" />
     <Compile Include="OTHERPOSTS.cs" />
@@ -93,6 +97,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202003151340317_Alter_Table_PriceCategory_Add_Column_Description.resx">
       <DependentUpon>202003151340317_Alter_Table_PriceCategory_Add_Column_Description.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003151951136_Alter_Table_PhotoPost_Add_Column_ThumbPath.resx">
+      <DependentUpon>202003151951136_Alter_Table_PhotoPost_Add_Column_ThumbPath.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

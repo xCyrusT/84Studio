@@ -1,4 +1,4 @@
-﻿using Studio84.Services.OtherCategory;
+﻿using Studio84.Services;
 using Studio84.Services.OtherCategory.Dto;
 using System;
 using System.Collections.Generic;

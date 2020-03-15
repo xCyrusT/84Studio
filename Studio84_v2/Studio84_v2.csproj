@@ -3226,23 +3226,15 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_Layout - Copy.cshtml" />
     <Content Include="Views\Home\BaoGia.cshtml" />
     <Content Include="Views\ChupAnh\Index.cshtml" />
-    <Content Include="Views\ChupAnh\Album01.cshtml" />
-    <Content Include="Views\ChupAnh\AnhPrewedding.cshtml" />
-    <Content Include="Views\ChupAnh\AnhPhongSuCuoi.cshtml" />
-    <Content Include="Views\ChupAnh\AnhGiaDinh.cshtml" />
-    <Content Include="Views\ChupAnh\AnhBeauty.cshtml" />
-    <Content Include="Views\ChupAnh\AnhSuKien.cshtml" />
     <Content Include="Views\QuayPhim\Index.cshtml" />
-    <Content Include="Views\QuayPhim\QuayPrewedding.cshtml" />
-    <Content Include="Views\QuayPhim\QuayPhongSuCuoi.cshtml" />
-    <Content Include="Views\QuayPhim\QuayTruyenThong.cshtml" />
-    <Content Include="Views\QuayPhim\QuaySuKien.cshtml" />
+    <Content Include="Views\ChupAnh\Category.cshtml" />
+    <Content Include="Views\ChupAnh\Post.cshtml" />
+    <Content Include="Views\QuayPhim\Category.cshtml" />
+    <Content Include="Views\QuayPhim\Post.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

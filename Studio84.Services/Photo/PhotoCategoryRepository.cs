@@ -14,12 +14,14 @@ namespace Studio84.Services
         private Studio84DbContext db = null;
         private DbSet<PHOTOCATEGORIES> _photoCateRepos = null;
         private DbSet<PHOTOPOSTS> _photoPostRepos = null;
+        private PhotoPostRepository _photoPost = null;
 
         public PhotoCategoryRepository()
         {
             db = new Studio84DbContext();
             _photoCateRepos = db.Set<PHOTOCATEGORIES>();
             _photoPostRepos = db.Set<PHOTOPOSTS>();
+            _photoPost = new PhotoPostRepository();
         }
 
         public List<PhotoCategoryDto> GetAll()
@@ -38,6 +40,38 @@ namespace Studio84.Services
                         Title = item.Title,
                         ThumbPath = item.ThumbPath,
                         IsActive = item.IsActive
+                    };
+
+                    result.Add(item2);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return result;
+        }
+
+        public List<PhotoCategoryWithChildDto> GetAllPhotoCategoryWithChild()
+        {
+            List<PhotoCategoryWithChildDto> result = new List<PhotoCategoryWithChildDto>();
+
+            try
+            {
+                var lstCategory = _photoCateRepos.Where(x => x.IsActive == true).ToList();
+
+                foreach (var item in lstCategory)
+                {
+                    List<PhotoPostDto> result2 = _photoPost.GetAllPhotoPost().Where(x => x.PhotoCategoryId == item.Id && x.IsActive == true).ToList();
+
+                    PhotoCategoryWithChildDto item2 = new PhotoCategoryWithChildDto()
+                    {
+                        Id = item.Id,
+                        Title = item.Title,
+                        ThumbPath = item.ThumbPath,
+                        IsActive = item.IsActive,
+                        LstChild = result2
                     };
 
                     result.Add(item2);

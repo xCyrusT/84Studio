@@ -1,4 +1,9 @@
-﻿using System;
+﻿using Studio84.Services;
+using Studio84.Services.Camera.Dto;
+using Studio84.Services.OtherCategory.Dto;
+using Studio84.Services.Photo.Dto;
+using Studio84.Services.Price.Dto;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,30 +13,63 @@ namespace Studio84_v2.Controllers
 {
     public class HomeController : Controller
     {
+        private PhotoCategoryRepository _photoCateRepos = null;
+        private CameraCategoryRepository _cameraCateRepos = null;
+        private OtherCategoryRepository _otherCateRepos = null;
+        private PriceRepository _priceRepos = null;
+
+        public HomeController()
+        {
+            _photoCateRepos = new PhotoCategoryRepository();
+            _cameraCateRepos = new CameraCategoryRepository();
+            _otherCateRepos = new OtherCategoryRepository();
+            _priceRepos = new PriceRepository();
+        }
+
         public ActionResult Index()
         {
-            return View();
-        }
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.PhotoLst = GetAllPhotoCategory();
+            ViewBag.CameraLst = GetAllCameraCategory();
+            ViewBag.OtherLst = GetAllOtherCategory();
+            ViewBag.PriceLst = GetAllPriceCategory();
 
             return View();
         }
 
-        public ActionResult Contact()
+        private List<PhotoCategoryDto> GetAllPhotoCategory()
         {
-            ViewBag.Message = "Your contact page.";
+            List<PhotoCategoryDto> result = new List<PhotoCategoryDto>();
 
-            return View();
+            result = _photoCateRepos.GetAll().Where(x => x.IsActive == true).ToList();
+
+            return result;
         }
 
-        public ActionResult BaoGia()
+        private List<CameraCategoryDto> GetAllCameraCategory()
         {
-            ViewBag.Message = "Your contact page.";
+            List<CameraCategoryDto> result = new List<CameraCategoryDto>();
 
-            return View();
+            result = _cameraCateRepos.GetAll().Where(x => x.IsActive == true).ToList();
+
+            return result;
+        }
+
+        private List<OtherCategoryDto> GetAllOtherCategory()
+        {
+            List<OtherCategoryDto> result = new List<OtherCategoryDto>();
+
+            result = _otherCateRepos.GetAll().Where(x => x.IsActive == true && x.IsRoot == true).ToList();
+
+            return result;
+        }
+
+        private List<PriceCategoryDto> GetAllPriceCategory()
+        {
+            List<PriceCategoryDto> result = new List<PriceCategoryDto>();
+
+            result = _priceRepos.GetAll().Where(x => x.IsActive == true).ToList();
+
+            return result;
         }
     }
 }

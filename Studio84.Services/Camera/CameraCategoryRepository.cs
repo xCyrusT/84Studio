@@ -1,5 +1,6 @@
 ﻿using Studio84.Model;
 using Studio84.Services.Camera.Dto;
+using Studio84.Services.Photo.Dto;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -14,6 +15,7 @@ namespace Studio84.Services
         private Studio84DbContext db = null;
         private DbSet<CAMERACATEGORIES> _cameraCateRepos = null;
         private DbSet<CAMERAPOSTS> _cameraPostRepos = null;
+        private CameraPostRepository _cameraPost = null;
 
         public CameraCategoryRepository()
         {
@@ -21,6 +23,7 @@ namespace Studio84.Services
 
             _cameraCateRepos = db.Set<CAMERACATEGORIES>();
             _cameraPostRepos = db.Set<CAMERAPOSTS>();
+            _cameraPost = new CameraPostRepository();
         }
 
         public List<CameraCategoryDto> GetAll()
@@ -40,6 +43,39 @@ namespace Studio84.Services
                         ThumbPath = item.ThumbPath,
                         VideoUrl = item.VideoUrl,
                         IsActive = item.IsActive
+                    };
+
+                    result.Add(item2);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return result;
+        }
+
+        public List<CameraCategoryWithChildDto> GetAllCameraCategoryWithChild()
+        {
+            List<CameraCategoryWithChildDto> result = new List<CameraCategoryWithChildDto>();
+
+            try
+            {
+                var lstCategory = _cameraCateRepos.Where(x => x.IsActive == true).ToList();
+
+                foreach (var item in lstCategory)
+                {
+                    List<CameraPostDto> result2 = _cameraPost.GetAllCameraPost().Where(x => x.CameraCategoryId == item.Id && x.IsActive == true).ToList();
+
+                    CameraCategoryWithChildDto item2 = new CameraCategoryWithChildDto()
+                    {
+                        Id = item.Id,
+                        Title = item.Title,
+                        ThumbPath = item.ThumbPath,
+                        VideoUrl = item.VideoUrl,
+                        IsActive = item.IsActive,
+                        LstChild = result2
                     };
 
                     result.Add(item2);

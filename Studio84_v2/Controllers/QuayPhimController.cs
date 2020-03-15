@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Studio84.Services;
+using Studio84.Services.Camera.Dto;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,30 +10,39 @@ namespace Studio84_v2.Controllers
 {
     public class QuayPhimController : Controller
     {
+        private CameraCategoryRepository _cameraCateRepos = null;
+        private CameraPostRepository _cameraPostRepos = null;
+
+        public QuayPhimController()
+        {
+            _cameraCateRepos = new CameraCategoryRepository();
+            _cameraPostRepos = new CameraPostRepository();
+        }
+
         // GET: QuayPhim
         public ActionResult Index()
         {
+            ViewBag.LstCategory = GetAllCameraCategory();
+
             return View();
         }
 
-        public ActionResult QuayPrewedding()
+        public ActionResult Category(long id)
         {
+            CameraCategoryWithChildDto result = GetAllCameraCategory().Where(x => x.Id == id).SingleOrDefault();
+
+            ViewBag.Category = result;
+
             return View();
         }
 
-        public ActionResult QuayPhongSuCuoi()
+        private List<CameraCategoryWithChildDto> GetAllCameraCategory()
         {
-            return View();
-        }
+            List<CameraCategoryWithChildDto> result = new List<CameraCategoryWithChildDto>();
 
-        public ActionResult QuayTruyenThong()
-        {
-            return View();
-        }
+            result = _cameraCateRepos.GetAllCameraCategoryWithChild().Where(x => x.IsActive == true).ToList();
 
-        public ActionResult QuaySuKien()
-        {
-            return View();
+            return result;
         }
     }
 }

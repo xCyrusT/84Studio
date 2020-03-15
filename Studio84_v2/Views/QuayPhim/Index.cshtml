@@ -45,8 +45,71 @@
     </div>
 
 
-    <div class="panel">
-        <h2>Trang đang hoàn thiện ...</h2>
-    </div>
+    @if (ViewBag.LstCategory.Count > 0)
+    {
+        foreach (var item in ViewBag.LstCategory)
+        {
+            <div class="panel">
+                <div class="panel-heading">
+                    <div class="left">
+                        <a href="" class="heading-title"><img src="~/assets/img/icon/icon-header.png" id="img-before" />@item.Title</a>
+                    </div>
+                    <div class="right"><a href="/QuayPhim/Category?id=@item.Id"><i class="fa fa-plus" aria-hidden="true"></i> Xem thêm</a></div>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        @if (item.LstChild.Count < 3)
+                        {
+                            foreach (var item2 in item.LstChild)
+                            {
+                                <div class="col-md-4">
+                                    <div class="member-item">
+                                        <div class="item wow fadeInRight">
+                                            <div class="item-img">
+                                                <a href="#" data-src="@item2.VideoUrl" data-fancybox="video">
+                                                    <img class="img-fluid" src="@item2.ThumbPath" alt="">
+                                                </a>
+                                                <div class="item-content">
+                                                    <div class="content">
+                                                        <a href="@item2.ThumbPath" data-src="@item2.VideoUrl" data-fancybox="video">
+                                                            <i class="fas fa-play"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            for (int i = 0; i < 3; i++)
+                            {
+                                <div class="col-md-4">
+                                    <div class="member-item">
+                                        <div class="item wow fadeInRight">
+                                            <div class="item-img">
+                                                <a href="#" data-src="@item.LstChild[i].VideoUrl" data-fancybox="video">
+                                                    <img class="img-fluid" src="@item.LstChild[i].ThumbPath" alt="">
+                                                </a>
+                                                <div class="item-content">
+                                                    <div class="content">
+                                                        <a href="@item.LstChild[i].ThumbPath" data-src="@item.LstChild[i].VideoUrl" data-fancybox="video">
+                                                            <i class="fas fa-play"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    }
 </div>
 

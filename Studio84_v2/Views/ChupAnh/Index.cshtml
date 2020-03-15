@@ -43,26 +43,62 @@
         </nav>
     </div>
 
-
-    <div class="panel">
-        <div class="panel-heading"><div class="left"><a href="@Url.Action("AnhPrewedding", "ChupAnh")" class="heading-title"><img src="~/assets/img/icon/icon-header.png" id="img-before" />Ảnh prewedding</a></div> <div class="right"><a href="@Url.Action("AnhPrewedding", "ChupAnh")"><i class="fa fa-plus" aria-hidden="true"></i> Xem thêm</a></div></div>
-        <div class="panel-body">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="member-item">
-                        <div class="item wow fadeInRight">
-                            <div class="item-img">
-                                <a href="">
-                                    <img class="" src="~/assets/img/album01/84491368_103407474577839_8975941187135340544_o.jpg" alt="">
-                                </a>
-                                <div class="item-content">
-                                    <div class="content"><a href="@Url.Action("Album01", "ChupAnh")">Minh Nhung & Hồng Sơn</a></div>
+    @if (ViewBag.LstCategory.Count > 0)
+    {
+        foreach (var item in ViewBag.LstCategory)
+        {
+            <div class="panel">
+                <div class="panel-heading">
+                    <div class="left">
+                        <a href="" class="heading-title"><img src="~/assets/img/icon/icon-header.png" id="img-before" />@item.Title</a>
+                    </div>
+                    <div class="right"><a href="/ChupAnh/Category?id=@item.Id"><i class="fa fa-plus" aria-hidden="true"></i> Xem thêm</a></div>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        @if (item.LstChild.Count < 3)
+                        {
+                            foreach (var item2 in item.LstChild)
+                            {
+                                <div class="col-md-4">
+                                    <div class="member-item">
+                                        <div class="item wow fadeInRight">
+                                            <div class="item-img">
+                                                <a href="">
+                                                    <img class="" src="@item2.ThumbPath" alt="">
+                                                </a>
+                                                <div class="item-content">
+                                                    <div class="content"><a href="">@item2.Title</a></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
+                            }
+                        }
+                        else
+                        {
+                            for (int i = 0; i < 3; i++)
+                            {
+                                <div class="col-md-4">
+                                    <div class="member-item">
+                                        <div class="item wow fadeInRight">
+                                            <div class="item-img">
+                                                <a href="">
+                                                    <img class="" src="@item.LstChild[i].ThumbPath" alt="">
+                                                </a>
+                                                <div class="item-content">
+                                                    <div class="content"><a href="">@item.LstChild[i].Title</a></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+        }
+    }
 </div>

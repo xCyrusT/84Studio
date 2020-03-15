@@ -41,6 +41,7 @@ namespace Studio84.Services
                         Title = item.Title,
                         PhotoCategoryId = item.PhotoCategoryId,
                         PhotoCategoryName = _photoCateRepos.Find(item.PhotoCategoryId).Title,
+                        ThumbPath = item.ThumbPath,
                         IsActive = item.IsActive
                     };
 
@@ -69,6 +70,7 @@ namespace Studio84.Services
                     result.Title = query.Title;
                     result.PhotoCategoryId = query.PhotoCategoryId;
                     result.PhotoCategoryName = _photoCateRepos.Find(query.PhotoCategoryId).Title;
+                    result.ThumbPath = query.ThumbPath;
                     result.IsActive = query.IsActive;
 
                     var query2 = _mediaRepos.Where(x => x.PostId == result.Id).ToList();
@@ -166,6 +168,7 @@ namespace Studio84.Services
             //Create post
             postData.Title = input.Title;
             postData.PhotoCategoryId = input.PhotoCategoryId;
+            postData.ThumbPath = input.ThumbPath;
             postData.IsActive = input.IsActive;
 
             _photoPostRepos.Add(postData);
@@ -202,6 +205,7 @@ namespace Studio84.Services
             postData.Id = input.Id.Value;
             postData.Title = input.Title;
             postData.PhotoCategoryId = input.PhotoCategoryId;
+            postData.ThumbPath = input.ThumbPath;
             postData.IsActive = input.IsActive;
 
             _photoPostRepos.Attach(postData);

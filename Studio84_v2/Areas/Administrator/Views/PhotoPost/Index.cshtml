@@ -108,6 +108,13 @@
                                     <select class="photoCategory" id="photoCategory" name="state"></select>
                                 </div>
                                 <div class="form-group">
+                                    <label>Ảnh đại diện</label>
+                                    <div style="display:flex;margin-bottom:2px;">
+                                        <input type="text" id="thumbleImg" class="form-control" style="width:87%;" />
+                                        <button type="button" class="btn btn-primary" id="btnSelectThumble">Chọn ảnh</button>
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <label>Trạng thái</label>
                                     <label class="switch switch-text switch-primary switch-pill">
                                         <input type="checkbox" class="switch-input" id="isActive" checked="checked">
@@ -248,11 +255,20 @@
 
                     imgCount++;
                 }
-            })
+            });
+
+            $('#btnSelectThumble').on('click', function () {
+                var finder = new CKFinder();
+
+                finder.selectActionFunction = function (url) {
+                    $('#thumbleImg').val(url);
+                }
+
+                finder.popup();
+            });
         });
 
         function SelectImg(index) {
-            console.log(index);
             var id = '#thumble' + index;
             var finder = new CKFinder();
 
@@ -267,8 +283,9 @@
             //reset textbox
             $('#postId').val("");
             $('#title').val("");
+            $('#thumbleImg').val("");
             $('#isActive').prop('checked', true);
-            for (var i = 0; i < 14; i++) {
+            for (var i = 0; i < 15; i++) {
                 var id = '#thumble' + i;
                 $(id).val("");
             }
@@ -310,6 +327,7 @@
             var data = {
                 Id: $('#postId').val(),
                 Title: $('#title').val(),
+                ThumbPath: $('#thumbleImg').val(),
                 PhotoCategoryId: photoCategoryId,
                 IsActive: isActive,
                 LstMedias: lstImg
@@ -340,6 +358,7 @@
                             //reset textbox
                             $('#postId').val("");
                             $('#title').val("");
+                            $('#thumbleImg').val("");
                             $('#isActive').prop('checked', true);
                             for (var i = 0; i < 15; i++) {
                                 var id = '#thumble' + i;
@@ -375,6 +394,7 @@
                 success: function (result) {
                     $('#postId').val(result.Data.Id);
                     $('#title').val(result.Data.Title);
+                    $('#thumbleImg').val(result.Data.ThumbPath);
                     $('#photoCategory').select2('data', { id: result.Data.PhotoCategoryId, title: result.Data.PhotoCategoryName });
 
                     if (result.Data.IsActive == true) {
@@ -400,7 +420,7 @@
 
                             lstImgHTML.append(newImg);
 
-                            $('#'+id).val(value);
+                            $('#' + id).val(value);
                         }
                     }
 
@@ -450,6 +470,7 @@
             var data = {
                 Id: $('#postId').val(),
                 Title: $('#title').val(),
+                ThumbPath: $('#thumbleImg').val(),
                 PhotoCategoryId: photoCategoryId,
                 IsActive: isActive,
                 LstMedias: lstImg
@@ -472,6 +493,7 @@
                         //reset textbox
                         $('#postId').val("");
                         $('#title').val("");
+                        $('#thumbleImg').val("");
                         $('#isActive').prop('checked', true);
                         for (var i = 0; i < 15; i++) {
                             var id = '#thumble' + i;

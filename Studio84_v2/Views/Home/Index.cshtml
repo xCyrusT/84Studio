@@ -7,76 +7,23 @@
         <div class="panel-heading"><div class="left"><h2>Dịch vụ chụp ảnh</h2></div> <div class="right"><a href="@Url.Action("Index", "ChupAnh")">+ Xem thêm</a></div></div>
         <div class="panel-body">
             <div class="row">
-                <div class="col-md-4">
-                    <div class="member-item">
-                        <div class="item wow fadeInRight">
-                            <div class="item-img">
-                                <a href="@Url.Action("AnhPrewedding", "ChupAnh")">
-                                    <img class="" src="~/assets/img/post/VHD_9395.jpg" alt="">
-                                </a>
-                                <div class="item-content">
-                                    <div class="content"><a href="@Url.Action("AnhPrewedding", "ChupAnh")">Ảnh Prewedding</a></div>
+                @foreach (var item in ViewBag.PhotoLst)
+                {
+                    <div class="col-md-4">
+                        <div class="member-item">
+                            <div class="item wow fadeInRight">
+                                <div class="item-img">
+                                    <a href="/ChupAnh/Category?id=@item.Id">
+                                        <img class="" src="@item.ThumbPath" alt="">
+                                    </a>
+                                    <div class="item-content">
+                                        <div class="content"><a href="/ChupAnh/Category?id=@item.Id">@item.Title</a></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="member-item">
-                        <div class="item wow fadeInRight">
-                            <div class="item-img">
-                                <a href="@Url.Action("AnhPhongSuCuoi", "ChupAnh")">
-                                    <img class="" src="~/assets/img/post/VHD01769.jpg" alt="">
-                                </a>
-                                <div class="item-content">
-                                    <div class="content"><a href="@Url.Action("AnhPhongSuCuoi", "ChupAnh")">Ảnh phóng sự cưới</a></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="member-item">
-                        <div class="item wow fadeInRight">
-                            <div class="item-img">
-                                <a href="@Url.Action("AnhGiaDinh", "ChupAnh")">
-                                    <img class="" src="~/assets/img/post/VHD07701.jpg" alt="">
-                                </a>
-                                <div class="item-content">
-                                    <div class="content"><a href="@Url.Action("AnhGiaDinh", "ChupAnh")">Ảnh gia đình</a></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="member-item">
-                        <div class="item wow fadeInRight">
-                            <div class="item-img">
-                                <a href="@Url.Action("AnhBeauty", "ChupAnh")">
-                                    <img class="" src="~/assets/img/post/VHD05330.jpg" alt="">
-                                </a>
-                                <div class="item-content">
-                                    <div class="content"><a href="@Url.Action("AnhBeauty", "ChupAnh")">Ảnh beauty</a></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="member-item">
-                        <div class="item wow fadeInRight">
-                            <div class="item-img">
-                                <a href="@Url.Action("AnhSuKien", "ChupAnh")">
-                                    <img class="" src="~/assets/img/post/VHD09099.jpg" alt="">
-                                </a>
-                                <div class="item-content">
-                                    <div class="content"><a href="@Url.Action("AnhSuKien", "ChupAnh")">Ảnh sự kiện</a></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                }
             </div>
         </div>
     </div>
@@ -85,47 +32,89 @@
         <div class="panel-heading"><div class="left"><h2>Quay phim</h2></div> <div class="right"><a href="@Url.Action("Index", "QuayPhim")">+ Xem thêm</a></div></div>
         <div class="panel-body">
             <div class="row">
-                <div class="col-md-4">
-                    <div class="member-item">
-                        <div class="item wow fadeInRight">
-                            <div class="item-img">
-                                <a href="~/assets/img/banner/post/Screenshot_2.png" data-src="https://www.youtube.com/embed/SW9GKIpCI2s" data-fancybox="video">
-                                    <img class="img-fluid" src="/assets/img/post/Screenshot_1.png" alt="">
-                                </a>
-                                <div class="item-content">
-                                    <div class="content">
-                                        <a href="~/assets/img/banner/post/Screenshot_2.png" data-src="https://www.youtube.com/embed/SW9GKIpCI2s" data-fancybox="video">
-                                            <i class="fas fa-play"></i>
-                                        </a>
+                @foreach (var item in ViewBag.CameraLst)
+                {
+                    <div class="col-md-4">
+                        <div class="member-item">
+                            <div class="item wow fadeInRight">
+                                <div class="item-img">
+                                    <a href="#" data-src="@item.VideoUrl" data-fancybox="video">
+                                        <img class="img-fluid" src="@item.ThumbPath" alt="">
+                                    </a>
+                                    <div class="item-content">
+                                        <div class="content">
+                                            <a href="@item.ThumbPath" data-src="@item.VideoUrl" data-fancybox="video">
+                                                <i class="fas fa-play"></i>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <h3 class="text-center"><a href="/QuayPhim/Category?id=@item.Id">@item.Title</a></h3>
                     </div>
-                    <h3 class="text-center"><a href="#">Quay prewedding</a></h3>
-                </div>
-                <div class="col-md-4">
-                    <div class="member-item">
-                        <div class="item wow fadeInRight">
-                            <div class="item-img">
-                                <a href="~/assets/img/post/Screenshot_1.png" data-src="https://www.youtube.com/embed/tuLb-unjLCE" data-fancybox="video">
-                                    <img class="img-fluid" src="~/assets/img/post/Screenshot_2.png" alt="">
-                                </a>
-                                <div class="item-content">
-                                    <div class="content">
-                                        <a href="~/assets/img/post/Screenshot_1.png" data-src="https://www.youtube.com/embed/tuLb-unjLCE" data-fancybox="video">
-                                            <i class="fas fa-play"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <h3 class="text-center"><a href="#">Quay phóng sự cưới</a></h3>
-                </div>
+                }
             </div>
         </div>
     </div>
+
+    @*@if (ViewBag.OtherLst.Count > 0)
+    {
+        <div class="panel ">
+            <div class="panel-heading"><div class="left"><h2>Báo giá</h2></div> <div class="right"><a href="@Url.Action("Index", "BaoGia")">+ Xem thêm</a></div></div>
+            <div class="panel-body">
+                <div class="row">
+                    @foreach (var item in ViewBag.PriceLst)
+                    {
+                        <div class="col-md-4">
+                            <div class="member-item">
+                                <div class="item wow fadeInRight">
+                                    <div class="item-img">
+                                        <a href="">
+                                            <img class="" src="@item.ThumbPath" alt="">
+                                        </a>
+                                        <div class="item-content">
+                                            <div class="content"><a href="">@item.Title</a></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <h3 class="text-center"><a href="#">@item.Title</a></h3>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }*@
+
+    @if (ViewBag.PriceLst.Count > 0)
+    {
+        <div class="panel ">
+            <div class="panel-heading"><div class="left"><h2>Báo giá</h2></div> <div class="right"><a href="@Url.Action("Index", "BaoGia")">+ Xem thêm</a></div></div>
+            <div class="panel-body">
+                <div class="row">
+                    @foreach (var item in ViewBag.PriceLst)
+                    {
+                        <div class="col-md-4">
+                            <div class="member-item">
+                                <div class="item wow fadeInRight">
+                                    <div class="item-img">
+                                        <a href="">
+                                            <img class="" src="@item.ThumbPath" alt="">
+                                        </a>
+                                        <div class="item-content">
+                                            <div class="content"><a href="">@item.Title</a></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <h3 class="text-center"><a href="#">@item.Title</a></h3>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
 
     <div class="panel ">
         <div class="panel-heading"><div class="left"><h2>CẢM NHẬN CỦA KHÁCH HÀNG</h2></div> <div class="right"><a href="#">+ Xem thêm</a></div></div>
