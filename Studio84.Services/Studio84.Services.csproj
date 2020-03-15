@@ -54,7 +54,7 @@
     <Compile Include="Banner\BannerRepository.cs" />
     <Compile Include="Banner\Dto\BannerDto.cs" />
     <Compile Include="Banner\Dto\BannerInputDto.cs" />
-    <Compile Include="Camera\CameraCatetoryRepository.cs" />
+    <Compile Include="Camera\CameraCategoryRepository.cs" />
     <Compile Include="Camera\CameraPostRepository.cs" />
     <Compile Include="Camera\Dto\CameraCategoryDto.cs" />
     <Compile Include="Camera\Dto\CameraCategoryInputDto.cs" />

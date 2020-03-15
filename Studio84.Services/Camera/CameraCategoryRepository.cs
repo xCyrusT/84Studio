@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace Studio84.Services
 {
-    public class CameraCatetoryRepository
+    public class CameraCategoryRepository
     {
         private Studio84DbContext db = null;
         private DbSet<CAMERACATEGORIES> _cameraCateRepos = null;
         private DbSet<CAMERAPOSTS> _cameraPostRepos = null;
 
-        public CameraCatetoryRepository()
+        public CameraCategoryRepository()
         {
             db = new Studio84DbContext();
 
