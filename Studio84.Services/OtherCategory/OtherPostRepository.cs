@@ -100,7 +100,7 @@ namespace Studio84.Services.OtherCategory
             return result;
         }
 
-        public long CreateOrUpdatePhotoPost(OtherPostInputDto input)
+        public long CreateOrUpdateOtherPost(OtherPostInputDto input)
         {
             long id = -1;
 
@@ -123,7 +123,7 @@ namespace Studio84.Services.OtherCategory
             return id;
         }
 
-        public string DeletePhotoPost(long id)
+        public string DeleteOtherPost(long id)
         {
             string result = "failed";
 
