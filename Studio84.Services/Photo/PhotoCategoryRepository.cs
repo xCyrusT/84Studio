@@ -135,7 +135,7 @@ namespace Studio84.Services
 
             data.Title = input.Title;
             data.ThumbPath = input.ThumbPath;
-            data.IsActive = true;
+            data.IsActive = input.IsActive;
 
             _photoCateRepos.Add(data);
 

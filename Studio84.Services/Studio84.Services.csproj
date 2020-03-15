@@ -52,12 +52,24 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Banner\BannerRepository.cs" />
+    <Compile Include="Banner\Dto\BannerDto.cs" />
+    <Compile Include="Banner\Dto\BannerInputDto.cs" />
     <Compile Include="Camera\CameraCatetoryRepository.cs" />
     <Compile Include="Camera\CameraPostRepository.cs" />
+    <Compile Include="Camera\Dto\CameraCategoryDto.cs" />
+    <Compile Include="Camera\Dto\CameraCategoryInputDto.cs" />
+    <Compile Include="Camera\Dto\CameraPostDto.cs" />
+    <Compile Include="Camera\Dto\CameraPostInputDto.cs" />
+    <Compile Include="Feedback\Dto\FeedbackDto.cs" />
+    <Compile Include="Feedback\Dto\FeedbackInputDto.cs" />
     <Compile Include="Feedback\FeedbackRepository.cs" />
     <Compile Include="Media\Dto\MediaDto.cs" />
     <Compile Include="Media\Dto\MediaInputDto.cs" />
     <Compile Include="Media\MediaRepository.cs" />
+    <Compile Include="OtherCategory\Dto\OtherCategoryDto.cs" />
+    <Compile Include="OtherCategory\Dto\OtherCategoryInputDto.cs" />
+    <Compile Include="OtherCategory\Dto\OtherPostDto.cs" />
+    <Compile Include="OtherCategory\Dto\OtherPostInputDto.cs" />
     <Compile Include="OtherCategory\OtherCategoryRepository.cs" />
     <Compile Include="OtherCategory\OtherPostRepository.cs" />
     <Compile Include="Photo\Dto\PhotoCategoryDto.cs" />
@@ -66,6 +78,10 @@
     <Compile Include="Photo\Dto\PhotoPostInputDto.cs" />
     <Compile Include="Photo\PhotoCategoryRepository.cs" />
     <Compile Include="Photo\PhotoPostRepository.cs" />
+    <Compile Include="Price\Dto\PriceCategoryDto.cs" />
+    <Compile Include="Price\Dto\PriceCategoryInputDto.cs" />
+    <Compile Include="Price\Dto\PricePostDto.cs" />
+    <Compile Include="Price\Dto\PricePostInputDto.cs" />
     <Compile Include="Price\PricePostRepository.cs" />
     <Compile Include="Price\PriceRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -82,6 +98,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

@@ -166,7 +166,7 @@ namespace Studio84.Services
             //Create post
             postData.Title = input.Title;
             postData.PhotoCategoryId = input.PhotoCategoryId;
-            postData.IsActive = true;
+            postData.IsActive = input.IsActive;
 
             _photoPostRepos.Add(postData);
             db.SaveChanges();
