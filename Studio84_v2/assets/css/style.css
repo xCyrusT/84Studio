@@ -449,13 +449,14 @@ img {
 }
 
 .breadcrumb {
-    background: coral !important;
+    background: #d38939 !important;
     margin: 0 auto;
     max-width: 1159px;
-    padding: 15px 10px;
+    /*padding: 15px 10px;*/
     font-size: 16px;
     color: #fff;
     text-transform: uppercase;
+    height:35px;
 }
 
 .breadcrumb {

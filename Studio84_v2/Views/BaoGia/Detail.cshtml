@@ -1,0 +1,59 @@
+﻿
+@{
+    ViewBag.Title = "BaoGia";
+}
+
+<style>
+    .site-content .heading-title::before {
+        content: "";
+        position: absolute;
+        top: 3px;
+        left: 0;
+        width: 20px;
+        height: 20px;
+        background: url(../assets/img/icon/icon-header.png) center center no-repeat;
+        background-size: cover;
+    }
+
+    .nupacachi-content {
+        margin-top: 25px;
+    }
+
+        .nupacachi-content .panel .panel-heading {
+            background-color: #ffffff !important;
+        }
+
+            .nupacachi-content .panel .panel-heading a {
+                color: #556b2f;
+            }
+
+    #img-before {
+        margin-bottom: 5px;
+        margin-right: 5px;
+    }
+
+    #content {
+        display: contents;
+    }
+</style>
+
+<div class="container">
+    <div class="breadcrumbs-top">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page"><a href="@Url.Action("Index", "BaoGia")">Báo giá</a></li>
+                <li class="breadcrumb-item active" aria-current="page">@ViewBag.Detail.Title</li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="panel ">
+        @*<div class="panel-heading"><div class="left"><h2>Báo giá</h2></div> <div class="right"><a href="#"></a></div></div>*@
+        <div class="panel-body">
+            <div class="row" id="content">
+                @Html.Raw(ViewBag.Detail.Description)
+            </div>
+        </div>
+    </div>
+</div>

@@ -20,6 +20,8 @@ namespace Studio84.Model
 
         public long PhotoCategoryId { get; set; }
 
+        public string ThumbPath { get; set; }
+
         public bool IsActive { get; set; }
     }
 }

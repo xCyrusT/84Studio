@@ -148,6 +148,7 @@
     <Compile Include="Areas\Administrator\Controllers\Price\PricePostController.cs" />
     <Compile Include="Areas\Administrator\Controllers\User\RoleController.cs" />
     <Compile Include="Areas\Administrator\Controllers\User\UserController.cs" />
+    <Compile Include="Controllers\BaoGiaController.cs" />
     <Compile Include="Controllers\ChupAnhController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\QuayPhimController.cs" />
@@ -3228,13 +3229,14 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_Layout - Copy.cshtml" />
-    <Content Include="Views\Home\BaoGia.cshtml" />
     <Content Include="Views\ChupAnh\Index.cshtml" />
     <Content Include="Views\QuayPhim\Index.cshtml" />
     <Content Include="Views\ChupAnh\Category.cshtml" />
     <Content Include="Views\ChupAnh\Post.cshtml" />
     <Content Include="Views\QuayPhim\Category.cshtml" />
     <Content Include="Views\QuayPhim\Post.cshtml" />
+    <Content Include="Views\BaoGia\Index.cshtml" />
+    <Content Include="Views\BaoGia\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
