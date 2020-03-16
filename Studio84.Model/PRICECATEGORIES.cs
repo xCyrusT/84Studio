@@ -17,8 +17,7 @@ namespace Studio84.Model
         [StringLength(200)]
         [Column(TypeName ="nvarchar")]
         public string Title { get; set; }
-
-        [Column(TypeName = "nvarchar")]
+        
         public string Description { get; set; }
 
         public string ThumbPath { get; set; }
