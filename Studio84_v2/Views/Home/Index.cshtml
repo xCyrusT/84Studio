@@ -2,29 +2,102 @@
     ViewBag.Title = "Home Page";
 }
 
+<style>
+
+</style>
+
 <div class="container">
     <div class="panel ">
         <div class="panel-heading"><div class="left"><h2>Dịch vụ chụp ảnh</h2></div> <div class="right"><a href="@Url.Action("Index", "ChupAnh")">+ Xem thêm</a></div></div>
         <div class="panel-body">
             <div class="row">
-                @foreach (var item in ViewBag.PhotoLst)
-                {
-                    <div class="col-xs-6 col-md-4">
-                        <div class="member-item">
-                            <div class="item wow fadeInRight">
-                                <div class="item-img">
-                                    <a href="/ChupAnh/Category?id=@item.Id">
-                                        <img class="" src="@item.ThumbPath" alt="">
-                                    </a>
-                                    <div class="item-content">
-                                        <div class="content"><a href="/ChupAnh/Category?id=@item.Id">@item.Title</a></div>
+                @*@foreach (var item in ViewBag.PhotoLst)
+                    {
+                        <div class="col-xs-6 col-md-4">
+                            <div class="member-item">
+                                <div class="item wow fadeInRight">
+                                    <div class="item-img">
+                                        <a href="/ChupAnh/Category?id=@item.Id">
+                                            <img class="" src="@item.ThumbPath" alt="">
+                                        </a>
+                                        <div class="item-content">
+                                            <div class="content"><a href="/ChupAnh/Category?id=@item.Id">@item.Title</a></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            <h3 class="text-center photo-title"><a href="/ChupAnh/Category?id=@item.Id">@item.Title</a></h3>
                         </div>
-                        <h3 class="text-center photo-title"><a href="/ChupAnh/Category?id=@item.Id">@item.Title</a></h3>
-                    </div>
-                }
+                    }*@
+                <div class="col-xs-12 col-md-4 photo-lst">
+                    @for (int i = 0; i < ViewBag.PhotoLst.Count; i++)
+                    {
+                        if (i == 0 || i == 1)
+                        {
+                            <div class="col-md-12 col-xs-6">
+                                <div class="member-item">
+                                    <div class="item wow fadeInRight">
+                                        <div class="item-img">
+                                            <a href="/ChupAnh/Category?id=@ViewBag.PhotoLst[i].Id">
+                                                <img class="" src="@ViewBag.PhotoLst[i].ThumbPath" alt="">
+                                            </a>
+                                            <div class="item-content">
+                                                <div class="content"><a href="/ChupAnh/Category?id=@ViewBag.PhotoLst[i].Id">@ViewBag.PhotoLst[i].Title</a></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h3 class="text-center photo-title"><a href="/ChupAnh/Category?id=@ViewBag.PhotoLst[i].Id">@ViewBag.PhotoLst[i].Title</a></h3>
+                            </div>
+                        }
+                    }
+                </div>
+                <div class="col-xs-12 col-md-4 photo-lst">
+                    @for (int i = 0; i < ViewBag.PhotoLst.Count; i++)
+                    {
+                        if (i == 2 || i == 3)
+                        {
+                            <div class="col-md-12 col-xs-6">
+                                <div class="member-item">
+                                    <div class="item wow fadeInRight">
+                                        <div class="item-img">
+                                            <a href="/ChupAnh/Category?id=@ViewBag.PhotoLst[i].Id">
+                                                <img class="" src="@ViewBag.PhotoLst[i].ThumbPath" alt="">
+                                            </a>
+                                            <div class="item-content">
+                                                <div class="content"><a href="/ChupAnh/Category?id=@ViewBag.PhotoLst[i].Id">@ViewBag.PhotoLst[i].Title</a></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h3 class="text-center photo-title"><a href="/ChupAnh/Category?id=@ViewBag.PhotoLst[i].Id">@ViewBag.PhotoLst[i].Title</a></h3>
+                            </div>
+                        }
+                    }
+                </div>
+                <div class="col-xs-12 col-md-4 photo-lst">
+                    @for (int i = 0; i < ViewBag.PhotoLst.Count; i++)
+                    {
+                        if (i == 4 || i == 5)
+                        {
+                            <div class="col-md-12 col-xs-6">
+                                <div class="member-item">
+                                    <div class="item wow fadeInRight">
+                                        <div class="item-img">
+                                            <a href="/ChupAnh/Category?id=@ViewBag.PhotoLst[i].Id">
+                                                <img class="" src="@ViewBag.PhotoLst[i].ThumbPath" alt="">
+                                            </a>
+                                            <div class="item-content">
+                                                <div class="content"><a href="/ChupAnh/Category?id=@ViewBag.PhotoLst[i].Id">@ViewBag.PhotoLst[i].Title</a></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h3 class="text-center photo-title"><a href="/ChupAnh/Category?id=@ViewBag.PhotoLst[i].Id">@ViewBag.PhotoLst[i].Title</a></h3>
+                            </div>
+                        }
+                    }
+                </div>
             </div>
         </div>
     </div>
@@ -39,11 +112,11 @@
                         <div class="member-item">
                             <div class="item wow fadeInRight">
                                 <div class="item-img">
-                                    <a href="#" data-src="@item.VideoUrl" data-fancybox="video">
+                                    <a class="pc-screen" href="#" data-src="@item.VideoUrl" data-fancybox="video">
                                         <img class="img-fluid" src="@item.ThumbPath" alt="">
                                     </a>
                                     <div class="item-content">
-                                        <div class="content">
+                                        <div class="content video-lst">
                                             <a href="@item.ThumbPath" data-src="@item.VideoUrl" data-fancybox="video">
                                                 <i class="fas fa-play"></i>
                                             </a>

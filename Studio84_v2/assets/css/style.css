@@ -627,7 +627,7 @@ img {
     display: none !important
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 910px) {
     .menu-top {
         display: none !important;
     }
@@ -646,6 +646,14 @@ img {
 
     .panel-heading h2 {
         font-size: 11px !important;
+    }
+
+    .photo-lst {
+        display: flex !important;
+    }
+
+    .video-lst {
+        display: contents !important;
     }
 }
 
