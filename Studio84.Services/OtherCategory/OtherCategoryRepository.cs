@@ -52,6 +52,75 @@ namespace Studio84.Services
             return result;
         }
 
+        public List<OtherCategoryWithChildDto> GetAllWithChild()
+        {
+            List<OtherCategoryWithChildDto> result = new List<OtherCategoryWithChildDto>();
+
+            try
+            {
+                var lstCategory = _otherCateRepos.ToList();
+
+                foreach (var item in lstCategory)
+                {
+                    OtherCategoryWithChildDto item2 = new OtherCategoryWithChildDto()
+                    {
+                        Id = item.Id,
+                        Title = item.Title,
+                        ThumbPath = item.ThumbPath,
+                        IsRoot = item.IsRoot,
+                        IsActive = item.IsActive
+                    };
+
+                    item2.ParentCategoryId = item.ParentCategoryId;
+                    if (item2.ParentCategoryId != null)
+                    {
+                        item2.ParentCategoryName = _otherCateRepos.Find(item.ParentCategoryId).Title;
+                    }
+                    else
+                    {
+                        item2.ParentCategoryName = "";
+                    }
+
+                    var lstCategoryChild = GetAll().Where(x => x.ParentCategoryId == item.Id && x.IsActive == true).ToList();
+
+                    if (lstCategory.Count>0)
+                    {
+                        foreach (var item3 in lstCategory)
+                        {
+                            OtherCategoryDto item4 = new OtherCategoryDto()
+                            {
+                                Id = item3.Id,
+                                Title = item3.Title,
+                                ThumbPath = item3.ThumbPath,
+                                IsRoot = item3.IsRoot,
+                                IsActive = item3.IsActive
+                            };
+
+                            item4.ParentCategoryId = item.ParentCategoryId;
+                            if (item4.ParentCategoryId != null)
+                            {
+                                item4.ParentCategoryName = _otherCateRepos.Find(item3.ParentCategoryId).Title;
+                            }
+                            else
+                            {
+                                item4.ParentCategoryName = "";
+                            }
+
+                            item2.LstOtherCategory.Add(item4);
+                        }
+                    }
+
+                    result.Add(item2);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return result;
+        }
+
         public OtherCategoryDto GetById(long id)
         {
             OtherCategoryDto result = new OtherCategoryDto();
@@ -64,6 +133,15 @@ namespace Studio84.Services
                 {
                     result.Id = query.Id;
                     result.Title = query.Title;
+                    result.ParentCategoryId = query.ParentCategoryId;
+                    if (result.ParentCategoryId != null)
+                    {
+                        result.ParentCategoryName = _otherCateRepos.Find(query.ParentCategoryId).Title;
+                    }
+                    else
+                    {
+                        result.ParentCategoryName = "";
+                    }
                     result.ThumbPath = query.ThumbPath;
                     result.IsRoot = query.IsRoot;
                     result.IsActive = query.IsActive;
@@ -136,6 +214,7 @@ namespace Studio84.Services
             OTHERCATEGORIES data = new OTHERCATEGORIES();
 
             data.Title = input.Title;
+            data.ParentCategoryId = input.ParentCategoryId;
             data.ThumbPath = input.ThumbPath;
             data.IsRoot = input.IsRoot;
             data.IsActive = input.IsActive;
@@ -153,6 +232,7 @@ namespace Studio84.Services
 
             data.Id = input.Id.Value;
             data.Title = input.Title;
+            data.ParentCategoryId = input.ParentCategoryId;
             data.ThumbPath = input.ThumbPath;
             data.IsRoot = input.IsRoot;
             data.IsActive = input.IsActive;

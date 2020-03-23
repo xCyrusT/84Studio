@@ -15,7 +15,7 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Home</a></li>
                 <li class="breadcrumb-item active" aria-current="page"><a href="@Url.Action("Indexx", "ChupAnh")">Chụp ảnh</a></li>
-                <li class="breadcrumb-item active" aria-current="page"><a href="/ChupAnh/ShowAllPostOfCategory?id=@ViewBag.Detail.PhotoCategoryId">@ViewBag.Detail.PhotoCategoryName</a></li>
+                <li class="breadcrumb-item active" aria-current="page"><a href="/ChupAnh/Category?id=@ViewBag.Detail.PhotoCategoryId">@ViewBag.Detail.PhotoCategoryName</a></li>
                 <li class="breadcrumb-item active" aria-current="page">@ViewBag.Detail.Title</li>
             </ol>
         </nav>

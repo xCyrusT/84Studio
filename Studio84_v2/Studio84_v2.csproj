@@ -136,6 +136,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Administrator\AdministratorAreaRegistration.cs" />
+    <Compile Include="Areas\Administrator\Controllers\Banner\BannerController.cs" />
     <Compile Include="Areas\Administrator\Controllers\Camera\CameraCategoryController.cs" />
     <Compile Include="Areas\Administrator\Controllers\Camera\CameraPostController.cs" />
     <Compile Include="Areas\Administrator\Controllers\Feedback\FeedbackController.cs" />
@@ -150,6 +151,7 @@
     <Compile Include="Areas\Administrator\Controllers\User\UserController.cs" />
     <Compile Include="Controllers\BaoGiaController.cs" />
     <Compile Include="Controllers\ChupAnhController.cs" />
+    <Compile Include="Controllers\DanhMucKhacController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\QuayPhimController.cs" />
     <Compile Include="Global.asax.cs">
@@ -3237,11 +3239,15 @@
     <Content Include="Views\QuayPhim\Post.cshtml" />
     <Content Include="Views\BaoGia\Index.cshtml" />
     <Content Include="Views\BaoGia\Detail.cshtml" />
+    <Content Include="Views\DanhMucKhac\Index.cshtml" />
+    <Content Include="Views\DanhMucKhac\Category.cshtml" />
+    <Content Include="Views\DanhMucKhac\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Administrator\Assets\js\plugins\" />
     <Folder Include="Areas\Administrator\Models\" />
+    <Folder Include="Areas\Administrator\Views\Banner\" />
     <Folder Include="Areas\Administrator\Views\Feedback\" />
     <Folder Include="Areas\Administrator\Views\Home\" />
     <Folder Include="Areas\Administrator\Views\PricePost\" />

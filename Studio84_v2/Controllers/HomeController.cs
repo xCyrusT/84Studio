@@ -30,7 +30,7 @@ namespace Studio84_v2.Controllers
         {
             ViewBag.PhotoLst = GetAllPhotoCategory();
             ViewBag.CameraLst = GetAllCameraCategory();
-            ViewBag.OtherLst = GetAllOtherCategory();
+            //ViewBag.OtherLst = GetAllOtherCategory();
             ViewBag.PriceLst = GetAllPriceCategory();
 
             return View();
@@ -54,14 +54,14 @@ namespace Studio84_v2.Controllers
             return result;
         }
 
-        private List<OtherCategoryDto> GetAllOtherCategory()
-        {
-            List<OtherCategoryDto> result = new List<OtherCategoryDto>();
+        //private List<OtherCategoryDto> GetAllOtherCategory()
+        //{
+        //    List<OtherCategoryDto> result = new List<OtherCategoryDto>();
 
-            result = _otherCateRepos.GetAll().Where(x => x.IsActive == true && x.IsRoot == true).ToList();
+        //    result = _otherCateRepos.GetAll().Where(x => x.IsActive == true && x.IsRoot == true).ToList();
 
-            return result;
-        }
+        //    return result;
+        //}
 
         private List<PriceCategoryDto> GetAllPriceCategory()
         {

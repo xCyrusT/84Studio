@@ -9,7 +9,7 @@
             <div class="row">
                 @foreach (var item in ViewBag.PhotoLst)
                 {
-                    <div class="col-md-4">
+                    <div class="col-xs-6 col-md-4">
                         <div class="member-item">
                             <div class="item wow fadeInRight">
                                 <div class="item-img">
@@ -22,6 +22,7 @@
                                 </div>
                             </div>
                         </div>
+                        <h3 class="text-center photo-title"><a href="/ChupAnh/Category?id=@item.Id">@item.Title</a></h3>
                     </div>
                 }
             </div>
@@ -59,33 +60,33 @@
     </div>
 
     @*@if (ViewBag.OtherLst.Count > 0)
-    {
-        <div class="panel ">
-            <div class="panel-heading"><div class="left"><h2>Báo giá</h2></div> <div class="right"><a href="@Url.Action("Index", "BaoGia")">+ Xem thêm</a></div></div>
-            <div class="panel-body">
-                <div class="row">
-                    @foreach (var item in ViewBag.PriceLst)
-                    {
-                        <div class="col-md-4">
-                            <div class="member-item">
-                                <div class="item wow fadeInRight">
-                                    <div class="item-img">
-                                        <a href="">
-                                            <img class="" src="@item.ThumbPath" alt="">
-                                        </a>
-                                        <div class="item-content">
-                                            <div class="content"><a href="">@item.Title</a></div>
+        {
+            <div class="panel ">
+                <div class="panel-heading"><div class="left"><h2>ViewBag.OtherLst.Title</h2></div> <div class="right"><a href="@Url.Action("Index", "DanhMucKhac")">+ Xem thêm</a></div></div>
+                <div class="panel-body">
+                    <div class="row">
+                        @foreach (var item in ViewBag.OtherLst.PriceLst)
+                        {
+                            <div class="col-md-4">
+                                <div class="member-item">
+                                    <div class="item wow fadeInRight">
+                                        <div class="item-img">
+                                            <a href="">
+                                                <img class="" src="@item.ThumbPath" alt="">
+                                            </a>
+                                            <div class="item-content">
+                                                <div class="content"><a href="">@item.Title</a></div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                                <h3 class="text-center"><a href="#">@item.Title</a></h3>
                             </div>
-                            <h3 class="text-center"><a href="#">@item.Title</a></h3>
-                        </div>
-                    }
+                        }
+                    </div>
                 </div>
             </div>
-        </div>
-    }*@
+        }*@
 
     @if (ViewBag.PriceLst.Count > 0)
     {

@@ -29,7 +29,7 @@ namespace Studio84_v2.Areas.Administrator.Controllers
         {
             JsonResult result = new JsonResult();
 
-            List<OtherCategoryDto> lstCate = otherCateRepo.GetAll().Where(x => x.IsActive == true && x.IsRoot == true).ToList();
+            List<OtherCategoryDto> lstCate = otherCateRepo.GetAll().Where(x => x.IsActive == true && x.IsRoot == false).ToList();
 
             result.Data = lstCate;
 

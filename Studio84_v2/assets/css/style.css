@@ -164,7 +164,7 @@ img {
     background-color: #d38939;
     color: #fff;
     margin-bottom: 20px;
-    height:35px;
+    height: 35px;
 }
 
     .nupacachi-content .panel .panel-heading a {
@@ -456,7 +456,7 @@ img {
     font-size: 16px;
     color: #fff;
     text-transform: uppercase;
-    height:35px;
+    height: 35px;
 }
 
 .breadcrumb {
@@ -623,6 +623,10 @@ img {
                 color: #ffaf00 !important
             }
 
+.photo-title {
+    display: none !important
+}
+
 @media screen and (max-width: 768px) {
     .menu-top {
         display: none !important;
@@ -634,6 +638,14 @@ img {
 
     .footer-item iframe {
         width: 100%;
+    }
+
+    .photo-title {
+        display: block !important
+    }
+
+    .panel-heading h2 {
+        font-size: 11px !important;
     }
 }
 

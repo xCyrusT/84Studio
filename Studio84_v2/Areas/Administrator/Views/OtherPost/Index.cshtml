@@ -84,7 +84,7 @@
             </div>
 
             <!--MODAL-->
-            <div class="modal fade" id="mediumModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+            <div class="modal fade" id="mediumModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -251,6 +251,12 @@
             })
         });
 
+        function CloseModal() {
+            imgCount = 1;
+            Reset();
+            $('#mediumModal').modal('hide');
+        }
+
         function SelectImg(index) {
             var id = '#thumble' + index;
             var finder = new CKFinder();
@@ -384,7 +390,7 @@
                     }
 
                     if (result.Data.LstMedia.length > 0) {
-                        imgCount = result.Data.LstMedia.length - 1;
+                        imgCount = result.Data.LstMedia.length;
 
                         var lstImgHTML = $('#lstImg');
                         lstImgHTML.empty();
@@ -399,7 +405,7 @@
 
                             lstImgHTML.append(newImg);
 
-                            $('#'+id).val(value);
+                            $('#' + id).val(value);
                         }
                     }
 

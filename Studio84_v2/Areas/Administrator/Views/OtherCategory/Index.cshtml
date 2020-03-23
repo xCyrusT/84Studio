@@ -103,6 +103,10 @@
                                     <label>Tiêu đề</label><span style="color:red;"> *</span>
                                     <input type="text" name="title" id="title" class="form-control" required />
                                 </div>
+                                <div class="form-group" id="rootCategory">
+                                    <label>Danh mục</label><span style="color:red;"> *</span>
+                                    <select class="otherCategory" id="otherCategory" name="state"></select>
+                                </div>
                                 <div class="form-group">
                                     <label>Đường dẫn ảnh</label>
                                     <div style="display:flex">
@@ -213,6 +217,28 @@
                 }
             });
 
+            $.ajax({
+                type: "GET",
+                url: '/OtherCategory/GetAllOtherCategory',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (res) {
+                    var resultData = res.Data;
+
+                    $.each(resultData, function (i, item) {
+                        if (item.IsRoot == true) {
+                            $("#otherCategory").append($("<option></option>").val(item.Id).html(item.Title));
+                        }
+                    });
+                }
+            });
+
+            $('.otherCategory').select2({
+                dropdownParent: $('#mediumModal'),
+                placeholder: 'Chọn danh mục',
+                dropdownPosition: 'below'
+            });
+
             $('#btnSelectImg').on('click', function () {
                 var finder = new CKFinder();
 
@@ -222,6 +248,17 @@
 
                 finder.popup();
             });
+
+            $('#isRoot').click(function () {
+                if ($('#isRoot').is(':checked') ? 'on' : 'off' === "on") {
+                    //isRoot = true;
+                    $('#rootCategory').hide();
+                }
+                else {
+                    //isRoot = false;
+                    $('#rootCategory').show();
+                }
+            });
         });
 
         function Reset() {
@@ -229,8 +266,9 @@
             $('#categoryId').val("");
             $('#title').val("");
             $('#thumble').val("");
-            $('#isRoot').prop('checked', false);
+            $('#isRoot').prop('checked', true);
             $('#isActive').prop('checked', true);
+            $('#rootCategory').hide();
 
             //show button Add
             $('#btnAdd').show();
@@ -242,11 +280,14 @@
         //Add data function
         function Add() {
             var isRoot = null;
+            var parentId = null;
+
             if ($('#isRoot').is(':checked') ? 'on' : 'off' === "on") {
                 isRoot = true;
             }
             else {
                 isRoot = false;
+                parentId = $('#otherCategory').find('option:selected').val();
             }
 
             var isActive = null;
@@ -261,6 +302,7 @@
             var data = {
                 Id: $('#categoryId').val(),
                 Title: $('#title').val(),
+                ParentCategoryId: parentId,
                 ThumbPath: $('#thumble').val(),
                 IsRoot: isRoot,
                 IsActive: isActive
@@ -324,9 +366,11 @@
 
                     if (result.Data.IsRoot == true) {
                         $('#isRoot').prop('checked', true);
+                        $('#rootCategory').hide();
                     }
                     else {
                         $('#isRoot').prop('checked', false);
+                        $('#otherCategory').select2('data', { id: result.Data.ParentCategoryId, title: result.Data.ParentCategoryName });
                     }
 
                     if (result.Data.IsActive == true) {
@@ -356,11 +400,13 @@
         //update data function
         function Update() {
             var isRoot = null;
+            var parentId = null;
             if ($('#isRoot').is(':checked') ? 'on' : 'off' === "on") {
                 isRoot = true;
             }
             else {
                 isRoot = false;
+                parentId = $('#otherCategory').find('option:selected').val();
             }
 
             var isActive = null;
@@ -374,6 +420,7 @@
             var data = {
                 Id: $('#categoryId').val(),
                 Title: $('#title').val(),
+                ParentCategoryId: parentId,
                 ThumbPath: $('#thumble').val(),
                 IsRoot: isRoot,
                 IsActive: isActive

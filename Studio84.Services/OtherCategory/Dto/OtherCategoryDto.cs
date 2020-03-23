@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace Studio84.Services.OtherCategory.Dto
 {
-    public class RootOtherCategoryDto
+    public class OtherCategoryWithChildDto
     {
         public long Id { get; set; }
         public string Title { get; set; }
         public long? ParentCategoryId { get; set; }
+        public string ParentCategoryName { get; set; }
         public string ThumbPath { get; set; }
         public bool IsRoot { get; set; }
         public bool IsActive { get; set; }
@@ -23,6 +24,7 @@ namespace Studio84.Services.OtherCategory.Dto
         public long Id { get; set; }
         public string Title { get; set; }
         public long? ParentCategoryId { get; set; }
+        public string ParentCategoryName { get; set; }
         public string ThumbPath { get; set; }
         public bool IsRoot { get; set; }
         public bool IsActive { get; set; }
